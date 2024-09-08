@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>前端面试题 - CSS篇 |  个人博客</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/hexo_blog/dist/main.css">
+
+      
+<link rel="stylesheet" href="/hexo_blog/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/hexo_blog/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-2024/09/08/面试题_css"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端面试题 - CSS篇
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/hexo_blog/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_css/" class="article-date">
+  <time datetime="2024-09-07T16:00:00.000Z" itemprop="datePublished">2024-09-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/hexo_blog/categories/%E5%89%8D%E7%AB%AF/">前端</a> / <a class="article-category-link" href="/hexo_blog/categories/%E5%89%8D%E7%AB%AF/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a> / <a class="article-category-link" href="/hexo_blog/categories/%E5%89%8D%E7%AB%AF/%E9%9D%A2%E8%AF%95%E9%A2%98/CSS/">CSS</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">17 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>前端面试题 - CSS篇</p>
+<span id="more"></span>
+
+<h2 id="二、CSS篇"><a href="#二、CSS篇" class="headerlink" title="二、CSS篇"></a>二、CSS篇</h2><h3 id="如果要做优化，CSS提高性能的方法有哪些？"><a href="#如果要做优化，CSS提高性能的方法有哪些？" class="headerlink" title="如果要做优化，CSS提高性能的方法有哪些？"></a>如果要做优化，CSS提高性能的方法有哪些？</h3><p>内联首屏关键CSS<br>异步加载CSS<br>资源压缩<br>合理使用选择器<br>减少使用昂贵的属性<br>不要使用@import</p>
+<h3 id="1、说一下-link-与-import-的区别和用法？"><a href="#1、说一下-link-与-import-的区别和用法？" class="headerlink" title="1、说一下 link 与 @import 的区别和用法？"></a>1、说一下 link 与 @import 的区别和用法？</h3><p>页面导入外部css文件的方法通常有两种，一种在网页中直接link标签加入，另一种在页面中@import引入css文件。两种引入形式如下：<br>link引入形式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link href=&quot;styles<span class="selector-class">.css</span>&quot; type=&quot;<span class="selector-tag">text</span>/css&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>@import引用形式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;<span class="selector-tag">text</span>/css&quot;&gt;</span><br><span class="line">    <span class="keyword">@import</span> url(<span class="string">&quot;styles.css&quot;</span>);</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>1、适用范围不同<br>@import可以在网页页面中使用，也可以在css文件中使用，用来将多个css文件引入到一个css文件中；而link只能将css文件引入到网页页面中。</p>
+<p>2、功能范围不同<br>link属于XHTML标签，而@import是CSS提供的一种方式，link标签除了可以加载CSS外，还可以定义rel连接属性，定义RSS等，@import就只能加载CSS。<br>3、加载顺序不同<br>页面被加载的时候，link引用的CSS会同时被加载，而@import引用的CSS会等到页面全部被下载完再被加载。所以有时候浏览@import加载CSS的页面时开始会没有样式（就是闪烁）<br>4、兼容性<br>由于@import是css2.1提出的，所以老的浏览器不支持，@import只有在IE5以上的才能识别，而link标签无此问题。<br>5、控制样式时的差别<br>使用link方式可以让用户切换CSS样式.现代浏览器如Firefox,Opera,Safari都支持rel&#x3D;”alternate stylesheet”属性(即可在浏览器上选择不同的风格),当然你还可以使用Javascript使得IE也支持用户更换样式。<br>6、使用DOM控制样式时的差别<br>当使用JavaScript控制DOM去改变样式的时候，只能使用link标签，因为@import不是DOM可以控制的。</p>
+<h3 id="2、rgba和opacity的透明效果有什么不同？"><a href="#2、rgba和opacity的透明效果有什么不同？" class="headerlink" title="2、rgba和opacity的透明效果有什么不同？"></a>2、rgba和opacity的透明效果有什么不同？</h3><p>opacity<br>opacity是一个属性。opacity属性的值，可以被其子元素继承，给父级div设置opacity属性，那么所有子元素都会继承这个属性，并且，该元素及其继承该属性的所有子元素的所有内容透明度都会改变。</p>
+<p>rgba（0，0，0，0.5）<br>rgba是一个属性值。rgba设置的元素，只对该元素的背景色有改变，并且，该元素的后代不会继承该属性。</p>
+<h3 id="3、display-none与visibility-hidden的区别？"><a href="#3、display-none与visibility-hidden的区别？" class="headerlink" title="3、display:none与visibility:hidden的区别？"></a>3、display:none与visibility:hidden的区别？</h3><p>这两个属性都是让元素隐藏，不可见。两者区别如下：</p>
+<p>（1）在渲染树中</p>
+<p>display:none会让元素完全从渲染树中消失，渲染时不会占据任何空间；<br>visibility:hidden不会让元素从渲染树中消失，渲染的元素还会占据相应的空间，只是内容不可见。<br>（2）是否是继承属性</p>
+<p>display:none是非继承属性，子孙节点会随着父节点从渲染树消失，通过修改子孙节点的属性也无法显示；<br>visibility:hidden是继承属性，子孙节点消失是由于继承了hidden，通过设置visibility:visible可以让子孙节点显示；<br>（3）修改常规文档流中元素的 display 通常会造成文档的重排，但是修改visibility属性只会造成本元素的重绘；<br>（4）如果使用读屏器，设置为display:none的内容不会被读取，设置为visibility:hidden的内容会被读取。</p>
+<p>（5）display：none 隐藏对应的元素，在文档布局中不再给它分配空间，它各边的元素会合拢，就当他从来不存在。<br>（6）visibility：hidden 隐藏对应的元素，但是在文档布局中仍保留原来的空间。</p>
+<h3 id="4、定位布局-position中的relative、absolute、fixed、sticky它们之间的区别？"><a href="#4、定位布局-position中的relative、absolute、fixed、sticky它们之间的区别？" class="headerlink" title="4、定位布局 position中的relative、absolute、fixed、sticky它们之间的区别？"></a>4、定位布局 position中的relative、absolute、fixed、sticky它们之间的区别？</h3><p><img src="/hexo_blog/images/2024/09/08/css-1.png" alt="图片"></p>
+<p><strong>（1）relative:相对定位，相对于自己本身在正常文档流中的位置进行定位。</strong></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-2.png" alt="图片"></p>
+<p><strong>（2）absolute:生成绝对定位，相对于最近一级定位不为static的父元素进行定位。</strong></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-3.png" alt="图片"></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-4.png" alt="图片"></p>
+<p><strong>（3）fixed: 生成绝对定位，相对于浏览器窗口或者frame进行定位。（老版本IE不支持）</strong></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-5.png" alt="图片"></p>
+<p><strong>（4）static:默认值，没有定位，元素出现在正常的文档流中。（很少用）<br>（5）sticky:生成粘性定位的元素，容器的位置根据正常文档流计算得出。（很少用）</strong></p>
+<h3 id="5、如何用CSS3画一条0-5px的直线？"><a href="#5、如何用CSS3画一条0-5px的直线？" class="headerlink" title="5、如何用CSS3画一条0.5px的直线？"></a>5、如何用CSS3画一条0.5px的直线？</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">height</span>: <span class="number">1px</span>;</span><br><span class="line"><span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">0.5</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、如何用CSS3画一个三角形？"><a href="#6、如何用CSS3画一个三角形？" class="headerlink" title="6、如何用CSS3画一个三角形？"></a>6、如何用CSS3画一个三角形？</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line"><span class="selector-class">.up</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">100px</span> solid red;<span class="comment">/*红色*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.down</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">100px</span> solid blue;<span class="comment">/*蓝色*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-left</span>: <span class="number">100px</span> solid pink;<span class="comment">/*黑色*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">100px</span> solid pink;<span class="comment">/*黄色*/</span></span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"> </span><br><span class="line">&lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=&quot;up&quot;&gt;&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=&quot;down&quot;&gt;&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=&quot;<span class="attribute">left</span>&quot;&gt;&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=&quot;<span class="attribute">right</span>&quot;&gt;&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">&lt;/<span class="selector-tag">body</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、CSS3盒子模型：标准盒模型、怪异盒模型"><a href="#7、CSS3盒子模型：标准盒模型、怪异盒模型" class="headerlink" title="7、CSS3盒子模型：标准盒模型、怪异盒模型"></a>7、CSS3盒子模型：标准盒模型、怪异盒模型</h3><p>盒子模型分为两种:</p>
+<p>第一种是 W3C 标准的盒子模型（标准盒模型）<br>第二种 IE 标准的盒子模型（怪异盒模型）<br>标准盒模型与怪异盒模型的表现效果的区别之处：</p>
+<p>1、标准盒模型中 width 指的是内容区域 content 的宽度</p>
+<p>height 指的是内容区域 content 的高度</p>
+<p>标准盒模型下盒子的大小 &#x3D; content + border + padding + margin<br><img src="/hexo_blog/images/2024/09/08/css-6.png" alt="图片"></p>
+<p>2、怪异盒模型中的 width 指的是内容、边框、内边距总的宽度（content + border + padding）；height 指的是内容、边框、内边距总的高度</p>
+<p>怪异盒模型下盒子的大小&#x3D;width（content + border + padding） + margin</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-7.png" alt="图片"></p>
+<p>除此之外，我们还可以通过属性 box-sizing 来设置盒子模型的解析模式</p>
+<p>可以为 box-sizing 赋两个值：</p>
+<p>1、box-sizing: content-box：默认值，border 和 padding 不算到 width 范围内，可以理解为是 W3c 的标准模型(default)。总宽&#x3D;width+padding+border+margin</p>
+<p>2、box-sizing: border-box：border 和 padding 划归到 width 范围内，可以理解为是 IE 的怪异盒模型，总宽&#x3D;width+margin</p>
+<ul>
+<li><em><strong>*相邻块元素垂直外边距的合并*</strong></em></li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/css-8.png" alt="图片"></p>
+<ul>
+<li><em><strong>*嵌套块元素垂直外边距的塌陷*</strong></em></li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/css-9.png" alt="图片"></p>
+<h3 id="8、浮动（float-以及清除浮动的方法"><a href="#8、浮动（float-以及清除浮动的方法" class="headerlink" title="8、浮动（float)以及清除浮动的方法"></a>8、浮动（float)以及清除浮动的方法</h3><p>(1) 脱标</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-10.png" alt="图片"></p>
+<p>(2) 清除浮动</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-11.png" alt="图片"></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-12.png" alt="图片"></p>
+<p>(3) 清除浮动的方法</p>
+<p>清除浮动 —— <em><strong>*额外标签法*</strong></em></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-13.png" alt="图片"></p>
+<ul>
+<li>清除浮动 —— 父级添加 overflow</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/css-14.png" alt="图片"></p>
+<ul>
+<li>清除浮动 —— :after 伪元素法</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/css-15.png" alt="图片"></p>
+<ul>
+<li>清除浮动 —— 双伪元素清除浮动</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/css-16.png" alt="图片"></p>
+<h3 id="9、Flex布局"><a href="#9、Flex布局" class="headerlink" title="9、Flex布局"></a>9、Flex布局</h3><p><strong>1、主轴对齐方式</strong></p>
+<p>使用justify-content调节元素在主轴的对齐方式</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-17.png" alt="图片"></p>
+<p><strong>2、侧轴对齐方式</strong></p>
+<p>使用align-items调节元素在侧轴的对齐方式</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-18.png" alt="图片"></p>
+<p><strong>3、换轴</strong></p>
+<p>使用flex-direction改变元素排列方向</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-19.png" alt="图片"></p>
+<p><strong>4、弹性盒子换行</strong></p>
+<p>目标：使用flex-wrap实现弹性盒子多行排列效果</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-20.png" alt="图片"></p>
+<h3 id="10、CSS3中“transform”属性-平面转换"><a href="#10、CSS3中“transform”属性-平面转换" class="headerlink" title="10、CSS3中“transform”属性~平面转换"></a>10、CSS3中“transform”属性~平面转换</h3><p><strong>（1）位移：</strong>transform: translate(水平移动距离, 垂直移动距离)</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-21.png" alt="图片"></p>
+<p>（2）旋转</p>
+<p>transform: rotate(角度); 注意：角度单位是deg</p>
+<p>取值为正, 则顺时针旋转 Ø 取值为负, 则逆时针旋转</p>
+<p>（3）缩放</p>
+<p>transform: scale(x轴缩放倍数, y轴缩放倍数);<br>transform: scale(缩放倍数);<br>scale值大于1表示放大, scale值小于1表示缩小<br>（4）transition的基本用法</p>
+<p>transition：[属性名] [持续时间] [速度曲线] [延迟时间]</p>
+<p>我们可以很方便的用这个过渡来给某一个属性加上好看的动效。</p>
+<p>例如，高度属性的值改变时，延迟 0.5 秒后以 ease 曲线进行过渡，持续2秒：</p>
+<p>transition:height 2s ease 0.5s<br>或者一个属性不够，想要监听所有属性。</p>
+<p>transition: all 2s ease .5s</p>
+<h3 id="11、CSS3中-“子绝父相”-定位布局"><a href="#11、CSS3中-“子绝父相”-定位布局" class="headerlink" title="11、CSS3中 “子绝父相” 定位布局"></a>11、CSS3中 “子绝父相” 定位布局</h3><p>弄清楚这个口诀，就明白了绝对定位和相对定位的使用场景。<br>这个“子绝父相”太重要了，是我们学习定位的口诀，是定位中最常用的一种方式这句话的意思是：子级是绝对定位的话，父级要用相对定位。</p>
+<p>① 子级绝对定位，不会占有位置，可以放到父盒子里面的任何一个地方，不会影响其他的兄弟盒子。<br>② 父盒子需要加定位限制子盒子在父盒子内显示。<br>③ 父盒子布局时，需要占有位置，因此父亲只能是相对定位。<br>这就是子绝父相的由来，所以相对定位经常用来作为绝对定位的父级。</p>
+<p>总结： 因为父级需要占有位置，因此是相对定位， 子盒子不需要占有位置，则是绝对定位<br>当然，子绝父相不是永远不变的，如果父元素不需要占有位置，子绝父绝也会遇到。</p>
+<h3 id="12、盒子居中的几种方法：“子绝父相”、“Flex布局”、“transform”"><a href="#12、盒子居中的几种方法：“子绝父相”、“Flex布局”、“transform”" class="headerlink" title="12、盒子居中的几种方法：“子绝父相”、“Flex布局”、“transform”"></a>12、盒子居中的几种方法：“子绝父相”、“Flex布局”、“transform”</h3><p><em>*<em>*</em>*（1）利用定位（子绝父相）、margin-left、margin-top实现****</em>*</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-21.png" alt="图片"></p>
+<p>（2）<em><strong>*利用定位（子绝父相）、transform属性实现*</strong></em></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-22.png" alt="图片"></p>
+<p>（3）<em><strong>*利用flex布局实现盒子居中*</strong></em></p>
+<p><img src="/hexo_blog/images/2024/09/08/css-23.png" alt="图片"></p>
+<h3 id="13、CSS3中有哪些新特性？"><a href="#13、CSS3中有哪些新特性？" class="headerlink" title="13、CSS3中有哪些新特性？"></a>13、CSS3中有哪些新特性？</h3><p>新增各种CSS选择器 （: not(.input)：所有 class 不是“input”的节点）<br>圆角 （border-radius:8px）<br>多列布局 （multi-column layout）<br>阴影和反射 （Shadoweflect）<br>文字特效 （text-shadow）<br>文字渲染 （Text-decoration）<br>线性渐变 （gradient）<br>旋转 （transform）<br>增加了旋转,缩放,定位,倾斜,动画,多背景</p>
+<h3 id="14、CSS3选择器及其优先级"><a href="#14、CSS3选择器及其优先级" class="headerlink" title="14、CSS3选择器及其优先级"></a>14、CSS3选择器及其优先级</h3><p><img src="/hexo_blog/images/2024/09/08/css-24.png" alt="图片"></p>
+<p>对于选择器的优先级：</p>
+<p>标签选择器、伪元素选择器：1<br>类选择器、伪类选择器、属性选择器：10<br>id 选择器：100<br>内联样式：1000<br>注意事项：</p>
+<p>!important声明的样式的优先级最高；<br>如果优先级相同，则最后出现的样式生效；<br>继承得到的样式的优先级最低；<br>通用选择器（*）、子选择器（&gt;）和相邻同胞选择器（+）并不在这四个等级中，所以它们的权值都为 0 ；<br>样式表的来源不同时，优先级顺序为：内联样式 &gt; 内部样式 &gt; 外部样式 &gt; 浏览器用户自定义样式 &gt; 浏览器默认样式。</p>
+<h3 id="15、CSS3中-“transition”-过渡属性"><a href="#15、CSS3中-“transition”-过渡属性" class="headerlink" title="15、CSS3中 “transition” 过渡属性"></a>15、CSS3中 “transition” 过渡属性</h3><p><img src="/hexo_blog/images/2024/09/08/css-25.png" alt="图片"></p>
+<h3 id="16、结构伪类选择器-伪元素选择器"><a href="#16、结构伪类选择器-伪元素选择器" class="headerlink" title="16、结构伪类选择器&amp;伪元素选择器"></a>16、结构伪类选择器&amp;伪元素选择器</h3><p>1、结构伪类选择器：可方便的选取一个或多个特定的元素</p>
+<p>:first-child 选取属于其父元素的首个子元素<br>:last-child 选取属于其父元素的最后一个子元素<br>:nth-child(n) 选择第n个子元素<br>　　　    n&#x3D;even &#x2F; 2n ：选取偶数孩子  </p>
+<p>　　　　n&#x3D;odd &#x2F; 2n+1 ：选取奇数孩子</p>
+<p>2、伪元素选择器：</p>
+<p>::first-letter &#x2F; line: 文本第一个单词 &#x2F; 第一行<br>::selection: 改变选中文本的样式<br>::before &amp; ::after<br>这两兄弟特性一样：1.必须要带content属性（可以为空）</p>
+<p>　　　　　　　　　2.属于行内盒子</p>
+<p>3、属性选择器：</p>
+<p>div[class&#x3D;xx]: 选择类名为xx的div<br>div[class^&#x3D;xx]: 选择以类名为xx开头的div<br>div[class$&#x3D;xx]: 选择类名是以xx结束的div<br>div[class*&#x3D;xx]: 选择类名带有xx的div<br>（1）结构伪类选择器<br><img src="/hexo_blog/images/2024/09/08/css-26.png" alt="图片"></p>
+<p>（2）伪元素选择器</p>
+<p><img src="/hexo_blog/images/2024/09/08/css-27.png" alt="图片"></p>
+<h3 id="17、display的block、inline和inline-block的区别？"><a href="#17、display的block、inline和inline-block的区别？" class="headerlink" title="17、display的block、inline和inline-block的区别？"></a>17、display的block、inline和inline-block的区别？</h3><p>（1）block： 会独占一行，多个元素会另起一行，可以设置width、height、margin和padding属性；</p>
+<p>（2）inline： 元素不会独占一行，设置width、height属性无效。但可以设置水平方向的margin和padding属性，不能设置垂直方向的padding和margin；</p>
+<p>（3）inline-block： 将对象设置为inline对象，但对象的内容作为block对象呈现，之后的内联对象会被排列在同一行内。</p>
+<p>对于行内元素和块级元素，其特点如下：</p>
+<p>行内元素</p>
+<p>设置宽高无效；<br>可以设置水平方向的margin和padding属性，不能设置垂直方向的padding和margin；<br>不会自动换行；<br>块级元素</p>
+<p>可以设置宽高；<br>设置margin和padding都有效；<br>可以自动换行；<br>多个块状，默认排列从上到下。</p>
+<h3 id="18、定位堆叠顺序z-index"><a href="#18、定位堆叠顺序z-index" class="headerlink" title="18、定位堆叠顺序z-index"></a>18、定位堆叠顺序z-index</h3><p>在使用定位布局时，可能会出现盒子重叠的情况。此时，可以使用 z-index 来控制盒子的前后次序 (z轴)</p>
+<p>语法： 选择器 { z-index: 1; }<br>数值可以是正整数、负整数或 0, 默认是 auto，数值越大，盒子越靠上</p>
+<p>如果属性值相同，则按照书写顺序，后来居上</p>
+<p>数字后面不能加单位</p>
+<p>只有定位的盒子才有 z-index 属性</p>
+<h2 id="三、HTML-CSS混合篇"><a href="#三、HTML-CSS混合篇" class="headerlink" title="三、HTML&amp;&amp;CSS混合篇"></a>三、HTML&amp;&amp;CSS混合篇</h2><h3 id="1、Localstorage、sessionStorage、cookie-的区别"><a href="#1、Localstorage、sessionStorage、cookie-的区别" class="headerlink" title="1、Localstorage、sessionStorage、cookie 的区别"></a>1、Localstorage、sessionStorage、cookie 的区别</h3><p>共同点：都是保存在浏览器端、且同源的</p>
+<p>三者区别：</p>
+<p>1、cookie 数据始终在同源的 http 请求中携带（即使不需要），即 cookie 在浏览器和服务器</p>
+<p>间来回传递，而 sessionStorage 和 localStorage 不会自动把数据发送给服务器，仅在本地保存。 cookie 数据还有路径（path）的概念，可以限制 cookie 只属于某个路径下</p>
+<p>2、存储大小限制也不同，cookie 数据不能超过 4K，同时因为每次 http 请求都会携带 cookie、 所以 cookie 只适合保存很小的数据，如会话标识。sessionStorage 和 localStorage 虽然也有存 储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。</p>
+<p>3、数据有效期不同</p>
+<p>sessionStorage：仅在当前浏览器窗口关闭之前有效；</p>
+<p>localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；</p>
+<p>cookie：只在设置的 cookie 过期时间之前有效，即使窗口关闭或浏览器关闭</p>
+<p>4、作用域不同</p>
+<p>sessionStorage 不在不同的浏览器窗口中共享，即使是同一个页面；</p>
+<p>localstorage 在所有同源窗口中都是共享的；</p>
+<p>cookie 也是在所有同源窗口中都是共享的</p>
+<p>5、web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者。</p>
+<p>6、web Storage 的 api 接口使用更方便。</p>
+<h3 id="2、如何实现双飞翼（圣杯）布局？"><a href="#2、如何实现双飞翼（圣杯）布局？" class="headerlink" title="2、如何实现双飞翼（圣杯）布局？"></a>2、如何实现双飞翼（圣杯）布局？</h3><p><img src="/hexo_blog/images/2024/09/08/css-28.png" alt="图片"></p>
+<p> 1、利用定位实现两侧固定中间自适应</p>
+<pre><code>    父盒子设置左右 padding 值
+
+    给左右盒子的 width 设置父盒子的 padding 值,然后分别定位到 padding 处.
+
+    中间盒子自适应
+</code></pre>
+<p>2、利用 flex 布局实现两侧固定中间自适应</p>
+<pre><code>    父盒子设置 display：flex
+
+    左右盒子设置固定宽高
+
+    中间盒子设置 flex：1 
+</code></pre>
+<h3 id="3、伪元素和伪类的区别和作用？"><a href="#3、伪元素和伪类的区别和作用？" class="headerlink" title="3、伪元素和伪类的区别和作用？"></a>3、伪元素和伪类的区别和作用？</h3><ul>
+<li><p>伪元素：在内容元素的前后插入额外的元素或样式，但是这些元素实际上并不在文档中生成。它们只在外部显示可见，但不会在文档的源代码中找到它们，因此，称为“伪”元素。例如：</p>
+</li>
+<li><pre><code class="css">p::before &#123;content:&quot;第一章：&quot;;&#125;
+p::after &#123;content:&quot;Hot!&quot;;&#125;
+p::first-line &#123;background:red;&#125;
+p::first-letter &#123;font-size:30px;&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 伪类：将特殊的效果添加到特定选择器上。它是已有元素上添加类别的，不会产生新的元素。例如：</span><br><span class="line"></span><br><span class="line">- ```css</span><br><span class="line">  a:hover &#123;color: #FF00FF&#125;</span><br><span class="line">  p:first-child &#123;color: red&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<p><strong>总结：</strong> 伪类是通过在元素选择器上加⼊伪类改变元素状态，⽽伪元素通过对元素的操作进⾏对元素的改变。</p>
+<h3 id="4、img-的-alt-与-title-的异同，还有实现图片懒加载的原理？"><a href="#4、img-的-alt-与-title-的异同，还有实现图片懒加载的原理？" class="headerlink" title="4、img 的 alt 与 title 的异同，还有实现图片懒加载的原理？"></a>4、img 的 alt 与 title 的异同，还有实现图片懒加载的原理？</h3><p>异同<br>alt 是图片加载失败时，显示在网页上的替代文字； title 是鼠标放上面时显示的文字,title</p>
+<p>是对图片的描述与进一步说明;</p>
+<p>这些都是表面上的区别，alt 是 img 必要的属性，而 title 不是 对于网站 seo 优化来说，title 与 alt 还有最重要的一点： 搜索引擎对图片意思的判断，主 要靠 alt 属性。所以在图片 alt 属性中以简要文字说明，同时包含关键词，也是页面优化的 一部分。条件允许的话，可以在 title 属性里，进一步对图片说明 由于过多的图片会严重影响网页的加载速度，并且移动网络下的流量消耗巨大，所以 说延迟加载几乎是标配了。</p>
+<p>原理<br>图片懒加载的原理很简单，就是我们先设置图片的 data-set 属性（当然也可以是其他任意的， 只要不会发送 http 请求就行了，作用就是为了存取值）值为其图片路径，由于不是 src，所 以不会发送 http 请求。 然后我们计算出页面 scrollTop 的高度和浏览器的高度之和， 如果 图片举例页面顶端的坐标 Y（相对于整个页面，而不是浏览器窗口）小于前两者之和，就说明图片就要显示出来了（合适的时机，当然也可以是 其他情况），这时候我们再将data-set 属性替换为 src 属性即可。</p>
+<h3 id="5、BFC-是什么？"><a href="#5、BFC-是什么？" class="headerlink" title="5、BFC 是什么？"></a>5、BFC 是什么？</h3><p>定义<br>BFC (Block formatting context) 直译为 “块级格式化上下文”。它是一个独立的渲染区域，</p>
+<p>只有 Block-level box 参与，它规定了内部的 Block-level Box 如何布局，并且与这个区域外部毫不相干。</p>
+<p>布局规则</p>
+<p>1、内部的 Box 会在垂直方向，一个接一个地放置<br>2、Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 Box 的 margin<br>会发生重叠<br>3、每个元素的 margin box 的左边， 与包含块 border box 的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此<br>4、BFC 的区域不会与 float box 重叠<br>5、BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此<br>6、计算 BFC 的高度时，浮动元素也参与计算<br>哪些元素会生成 BFC</p>
+<p>1、根元素<br>2、float 属性不为 none<br>3、position 为 absolute 或 fixed<br>4、display 为 inline-block， table-cell， table-caption， flex， inline-flex<br>5、overflow 不为 visible</p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_css/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo_blog/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo_blog/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo_blog/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/hexo_blog/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_html/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前端面试题 - HTML篇
+          
+        </div>
+      </a>
+    
+    
+      <a href="/hexo_blog/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_javascript/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">前端面试题 - Javascript篇</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2024
+        <i class="ri-heart-fill heart_icon"></i> Sun Chao Qun
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/hexo_blog/"><img src="/hexo_blog/images/ayer-side.svg" alt="个人博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/2024/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/hexo_blog/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/hexo_blog/images/alipay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/hexo_blog/images/wechat.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/hexo_blog/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/hexo_blog/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/hexo_blog/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/hexo_blog/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/hexo_blog/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/hexo_blog/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

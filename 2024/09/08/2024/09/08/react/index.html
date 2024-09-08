@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>react的一些使用记录 |  个人博客</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/hexo_blog/dist/main.css">
+
+      
+<link rel="stylesheet" href="/hexo_blog/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/hexo_blog/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-2024/09/08/react"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  react的一些使用记录
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/hexo_blog/2024/09/08/2024/09/08/react/" class="article-date">
+  <time datetime="2024-09-07T16:00:00.000Z" itemprop="datePublished">2024-09-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/hexo_blog/categories/react/">react</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">20 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>react平时使用的记录</p>
+<span id="more"></span>
+
+<h2 id="setState-传入回调函数场景"><a href="#setState-传入回调函数场景" class="headerlink" title="setState 传入回调函数场景"></a>setState 传入回调函数场景</h2><p>假设 age 为 42，这个方法将会调用 setAge(age + 1) 三次。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title function_">setAge</span>(age + <span class="number">1</span>); <span class="comment">// setAge(42 + 1)</span></span><br><span class="line">  <span class="title function_">setAge</span>(age + <span class="number">1</span>); <span class="comment">// setAge(42 + 1)</span></span><br><span class="line">  <span class="title function_">setAge</span>(age + <span class="number">1</span>); <span class="comment">// setAge(42 + 1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然而，触发 handleClick 方法后，age 还是 43，不是 45。因为 set 方法不会更新 age 状态变量在当前正在运行的代码。所以每次 setAge(age + 1) 都变成 setAge(43)。</p>
+<p>为了解决这个问题，你可以传一个函数类型参数给 setAge，获取到下一会的状态。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">handleClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title function_">setAge</span>(<span class="function"><span class="params">a</span> =&gt;</span> a + <span class="number">1</span>); <span class="comment">// setAge(42 =&gt; 43)</span></span><br><span class="line">  <span class="title function_">setAge</span>(<span class="function"><span class="params">a</span> =&gt;</span> a + <span class="number">1</span>); <span class="comment">// setAge(43 =&gt; 44)</span></span><br><span class="line">  <span class="title function_">setAge</span>(<span class="function"><span class="params">a</span> =&gt;</span> a + <span class="number">1</span>); <span class="comment">// setAge(44 =&gt; 45)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>a =&gt; a + 1</code> 是你的更新函数。它接收一个待改变的 state，然后在函数体计算返回下一个 state。</p>
+<p>React 把更新函数放入一个队列中。然后在下一次 render 时，更新函数将会以相同的顺序被调用。</p>
+<ol>
+<li>a &#x3D;&gt; a + 1 将接收 42 作为待改变的状态，然后返回 43 作为下一次的状态。</li>
+<li>a &#x3D;&gt; a + 1 将接收 43 作为待改变的状态，然后返回 44 作为下一次的状态。</li>
+<li>a &#x3D;&gt; a + 1 将接收 44 作为待改变的状态，然后返回 45 作为下一次的状态。</li>
+<li>没有其它队列需要更新, 最后 React 将会存储 45 作为最后的状态。</li>
+</ol>
+<blockquote>
+<p>在开发模式下，React 可能会调用两次你的更新函数，目的是确保他们是纯的没有副作用。</p>
+</blockquote>
+<h2 id="理解-useRef、useMemo、useCallback"><a href="#理解-useRef、useMemo、useCallback" class="headerlink" title="理解 useRef、useMemo、useCallback"></a>理解 useRef、useMemo、useCallback</h2><p>useRef 可用来存储一个引用值（不会受 re-render 影响），也可用来获取 dom 节点。</p>
+<p>useMemo 用来缓存一个值。当依赖项为空数组时，缓存值永远不会变。当有依赖性时，每次 re-render 如果依赖改变，那么将重新执行函数，将新的函数返回值作为缓存的数据。</p>
+<p>useCallback 是 useMemo 的语法糖，相当于返回一个函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn1 = <span class="title function_">useCallback</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">123</span>);</span><br><span class="line">&#125;, [])</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fn2 = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">123</span>);</span><br><span class="line">&#125;, [])</span><br></pre></td></tr></table></figure>
+
+<h2 id="react-不会缓存组件状态的解决方案"><a href="#react-不会缓存组件状态的解决方案" class="headerlink" title="react 不会缓存组件状态的解决方案"></a>react 不会缓存组件状态的解决方案</h2><p>react 不像 vue 能使用 keep-alive。</p>
+<p>当 react 跳到另外一个页面，再返回到上一个页面。上一个页面会重新渲染。</p>
+<p>由于水平有限，所以决定将接口数据进行缓存。第一次没有缓存会请求。第二次执行方法时判断是否有缓存，有就直接返回缓存的数据。</p>
+<p>我觉得要理解这个 hook，要明白模块只会被加载一次。还要明白每次 re-render 有些方法是会被重新执行，有些方法是会被重新定义。</p>
+<p>useCache hook</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">interface <span class="title class_">Cb</span> &#123;</span><br><span class="line">  (...<span class="attr">arg</span>: unknown[]): unknown</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> cacheMap = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="title function_">default</span> (<span class="attr">key</span>: string, <span class="attr">callback</span>: <span class="title class_">Cb</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">async</span> (cache = <span class="literal">true</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> result = cacheMap.<span class="title function_">get</span>(key)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(cache &amp;&amp; result) &#123;</span><br><span class="line">      <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">callback</span>()</span><br><span class="line">    cacheMap.<span class="title function_">set</span>(key, res)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span> (<span class="params"></span>) &#123;  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">fn</span>()</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">fn</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">getStatus</span>() </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;===&gt;&#x27;</span>, res);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> getStatus = <span class="title function_">useCache</span>(<span class="string">&#x27;getStatus&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">    <span class="keyword">const</span> res = [] <span class="keyword">as</span> number[]</span><br><span class="line">    arr.<span class="title function_">forEach</span>(<span class="function"><span class="params">num</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(num);</span><br><span class="line">      res.<span class="title function_">push</span>(num)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">add</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">setCount</span>(<span class="function"><span class="params">c</span> =&gt;</span> c + <span class="number">1</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;count&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;add&#125;</span>&gt;</span>add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义组件-props-类型，并且声明默认值"><a href="#定义组件-props-类型，并且声明默认值" class="headerlink" title="定义组件 props 类型，并且声明默认值"></a>定义组件 props 类型，并且声明默认值</h2><h3 id="普通情况"><a href="#普通情况" class="headerlink" title="普通情况"></a>普通情况</h3><p>使用 defaultProps。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; memo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  name?: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function Index(props: Props)&#123;</span></span><br><span class="line"><span class="comment">//   return (</span></span><br><span class="line"><span class="comment">//     &lt;button&gt;name: &#123;props.name&#125;&lt;/button&gt;</span></span><br><span class="line"><span class="comment">//   )</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Index</span> = (<span class="params">props: Props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>name: &#123;props.name&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// const 的作用域不会提升</span></span><br><span class="line"><span class="title class_">Index</span>.<span class="property">defaultProps</span> = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;小王&#x27;</span></span><br><span class="line">&#125; <span class="keyword">as</span> <span class="title class_">Props</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title class_">Index</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂情况：当使用了-forwardRef"><a href="#复杂情况：当使用了-forwardRef" class="headerlink" title="复杂情况：当使用了 forwardRef"></a>复杂情况：当使用了 forwardRef</h3><p>forwardRef 用来获取子组件内的 dom 元素。</p>
+<p>如果使用了 forwardRef，那么定义默认值需要这么写：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123;forwardRef&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  btnClick?: <span class="function">(<span class="params">item: any</span>) =&gt;</span> <span class="keyword">void</span></span><br><span class="line">  totalScore?: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Index</span> = <span class="title function_">forwardRef</span>(<span class="keyword">function</span> <span class="title function_">HeadReward</span>(<span class="params">props: Props, ref: any</span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title class_">Index</span>.<span class="property">defaultProps</span> = &#123;</span><br><span class="line">  <span class="attr">btnClick</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">totalScore</span>: <span class="number">0</span></span><br><span class="line">&#125; <span class="keyword">as</span> <span class="title class_">Props</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Index</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="React-性能优化注意事项"><a href="#React-性能优化注意事项" class="headerlink" title="React 性能优化注意事项"></a>React 性能优化注意事项</h2><p>由于全部使用的函数式组件，每次 setState 的时候，都会导致 re-render。</p>
+<p>而 React 是父组件更新，子组件也会跟着更新，所以需要做一些优化。</p>
+<h3 id="1-子组件使用-memo-包裹"><a href="#1-子组件使用-memo-包裹" class="headerlink" title="1 子组件使用 memo 包裹"></a>1 子组件使用 memo 包裹</h3><p>父组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span>  </span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Foo</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>子组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; memo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Index</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;re-render&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>子组件<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title class_">Index</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-传递给子组件的函数使用-useCallback-包裹"><a href="#2-传递给子组件的函数使用-useCallback-包裹" class="headerlink" title="2 传递给子组件的函数使用 useCallback 包裹"></a>2 传递给子组件的函数使用 useCallback 包裹</h3><p>如果不传递给子组件，可以不使用 useCallback 包裹。因为 re-render 时只是重新定义了一遍，函数内部并没有执行。</p>
+<p>为什么要用 useCallback 包裹，因为 re-render 时前后创建的两个函数引用地址并不一样，Object.is 比较是否相同时会返回 false。</p>
+<p>父组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useCallback, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Foo</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/foo&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> request = <span class="title function_">useCallback</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">10</span>)</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="comment">// const request = () =&gt; &#123;</span></span><br><span class="line">  <span class="comment">//   setTimeout(() =&gt; &#123;</span></span><br><span class="line">  <span class="comment">//     console.log(&#x27;请求&#x27;);</span></span><br><span class="line">  <span class="comment">//   &#125;, 10)</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span> </span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>setCount(count + 1)&#125;&gt;&#123;count&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Foo</span> <span class="attr">request</span>=<span class="string">&#123;request&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></span><br></pre></td></tr></table></figure>
+
+<p>子组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; memo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  <span class="attr">request</span>: <span class="function">() =&gt;</span> <span class="keyword">void</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Index</span> = (<span class="params">props: Props</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;re-render&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;props.request&#125;</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title class_">Index</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-传递给子组件的引用数据类型需要使用-useMemo-包裹。其实和上面说的传递函数给组件，函数要用-useCallback-包裹起来是同一个道理。函数也是引用数据类型，是一个特殊的对象！"><a href="#3-传递给子组件的引用数据类型需要使用-useMemo-包裹。其实和上面说的传递函数给组件，函数要用-useCallback-包裹起来是同一个道理。函数也是引用数据类型，是一个特殊的对象！" class="headerlink" title="3 传递给子组件的引用数据类型需要使用 useMemo 包裹。其实和上面说的传递函数给组件，函数要用 useCallback 包裹起来是同一个道理。函数也是引用数据类型，是一个特殊的对象！"></a>3 传递给子组件的引用数据类型需要使用 useMemo 包裹。其实和上面说的传递函数给组件，函数要用 useCallback 包裹起来是同一个道理。函数也是引用数据类型，是一个特殊的对象！</h3><p>父组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useCallback, useMemo, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Foo</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/foo&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> obj = <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;xiaowang&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">19</span></span><br><span class="line">  &#125;), [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span> </span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>setCount(count + 1)&#125;&gt;&#123;count&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Foo</span> <span class="attr">obj</span>=<span class="string">&#123;obj&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></span><br></pre></td></tr></table></figure>
+
+<p>子组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; memo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  <span class="attr">obj</span>: &#123;</span><br><span class="line">    <span class="attr">name</span>: string,</span><br><span class="line">    <span class="attr">age</span>: number</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Index</span> = (<span class="params">props: Props</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;re-render&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title class_">Index</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-hook-使用-useMemo-包裹"><a href="#4-hook-使用-useMemo-包裹" class="headerlink" title="4 hook 使用 useMemo 包裹"></a>4 hook 使用 useMemo 包裹</h3><p>为什么 hook 要使用 useMemo 包裹？因为我们使用 hook 本质上是在调用一个函数执行的计算结果。</p>
+<p>每次 re-render 的时候，都去执行一下 hook 函数的话，可能会造成性能上的损失。所以可以使用 useMemo 将函数执行的计算结果缓存起来。</p>
+<p>组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> list = <span class="title function_">usePow</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(list);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> list2 = <span class="title function_">usePow</span>([<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(list2);</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span> </span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>setCount(count + 1)&#125;&gt;&#123;count&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Foo</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>hook</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useMemo &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="title function_">default</span> (<span class="attr">list</span>: number[]) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">useMemo</span>(<span class="function">() =&gt;</span> list.<span class="title function_">map</span>(<span class="function"><span class="params">num</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hook 执行了&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">pow</span>(num, <span class="number">2</span>)</span><br><span class="line">  &#125;), [])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在函数式组件中使用-ref"><a href="#在函数式组件中使用-ref" class="headerlink" title="在函数式组件中使用 ref"></a>在函数式组件中使用 ref</h2><h3 id="获取当前组件内的-dom-节点"><a href="#获取当前组件内的-dom-节点" class="headerlink" title="获取当前组件内的 dom 节点"></a>获取当前组件内的 dom 节点</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Foo</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/foo&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;  </span><br><span class="line">  <span class="keyword">const</span> button = <span class="title function_">useRef</span>(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(button.<span class="property">current</span>);</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">ref</span>=<span class="string">&#123;button&#125;</span> &gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取子组件的-dom-节点"><a href="#获取子组件的-dom-节点" class="headerlink" title="获取子组件的 dom 节点"></a>获取子组件的 dom 节点</h3><p>使用 forwardRef 转发。</p>
+<p>父组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Foo</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/foo&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;  </span><br><span class="line">  <span class="keyword">const</span> button = <span class="title function_">useRef</span>(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(button.<span class="property">current</span>);</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Foo</span> <span class="attr">ref</span>=<span class="string">&#123;button&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></span><br></pre></td></tr></table></figure>
+
+<p>子组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; forwardRef &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  name?: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Index</span> = (<span class="params">props: Props, ref: any</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span>&gt;</span>name: &#123;props.name&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">forwardRef</span>(<span class="title class_">Index</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="memo-配合-forwardRef-一起使用"><a href="#memo-配合-forwardRef-一起使用" class="headerlink" title="memo 配合 forwardRef 一起使用"></a>memo 配合 forwardRef 一起使用</h3><p>用 memo 包裹 forwardRef 转发后的组件，防止子组件不必要的 re-render。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; forwardRef, memo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  name?: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Index</span> = (<span class="params">props: Props, ref: any</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// console.log(123);</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span>&gt;</span>name: &#123;props.name&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title function_">forwardRef</span>(<span class="title class_">Index</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="memo-配合-forwardRef-和-defaultProps-一起使用"><a href="#memo-配合-forwardRef-和-defaultProps-一起使用" class="headerlink" title="memo 配合 forwardRef 和 defaultProps 一起使用"></a>memo 配合 forwardRef 和 defaultProps 一起使用</h3><p>在 forwardRef 转发后返回的组件中添加 defaultProps 属性。以便当组件没有接收到父组件传来的 prop，使用默认值。</p>
+<p>注意这里只能在 forwardRef 转发后返回的组件中添加 defaultProps 属性，否则会报错。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; forwardRef, memo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  name?: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Index</span> = <span class="title function_">forwardRef</span>(<span class="function">(<span class="params">props: Props, ref: any</span>) =&gt;</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;</span>&gt;</span>name: &#123;props.name&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 注意这里只能在 forwardRef 转发后返回的组件中添加 defaultProps 属性</span></span><br><span class="line"><span class="comment">// 否则会报错。</span></span><br><span class="line"><span class="title class_">Index</span>.<span class="property">defaultProps</span> = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;小王&#x27;</span></span><br><span class="line">&#125; <span class="keyword">as</span> <span class="title class_">Props</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title class_">Index</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取循环列表的-dom-节点"><a href="#获取循环列表的-dom-节点" class="headerlink" title="获取循环列表的 dom 节点"></a>获取循环列表的 dom 节点</h3><h4 id="列表在当前组件内"><a href="#列表在当前组件内" class="headerlink" title="列表在当前组件内"></a>列表在当前组件内</h4><p>给 ref 传入一个 函数</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Foo</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/foo&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;  </span><br><span class="line"> <span class="keyword">const</span> buttonList = useRef&lt;<span class="title class_">Element</span>[]&gt;([])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">getRef</span>(<span class="params">dom: Element | <span class="literal">null</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!dom) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    buttonList.<span class="property">current</span>.<span class="title function_">push</span>(dom)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;</span></span><br><span class="line"><span class="language-xml">      [1,2,3,4,5].map((num) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">        return <span class="tag">&lt;<span class="name">button</span> <span class="attr">ref</span>=<span class="string">&#123;getRef&#125;</span> <span class="attr">key</span>=<span class="string">&#123;num&#125;</span>&gt;</span>name: &#123;num&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#125;)</span></span><br><span class="line"><span class="language-xml">      &#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="列表在子组件内"><a href="#列表在子组件内" class="headerlink" title="列表在子组件内"></a>列表在子组件内</h4><p>父组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRef, useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Foo</span> <span class="keyword">from</span> <span class="string">&#x27;@/components/foo&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;  </span><br><span class="line">  <span class="keyword">const</span> buttonList = <span class="title function_">useRef</span>(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(buttonList.<span class="property">current</span>);</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Foo</span> <span class="attr">ref</span>=<span class="string">&#123;buttonList&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>==<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></span><br></pre></td></tr></table></figure>
+
+<p>子组件通过 useImperativeHandle 自定义向父组件暴露属性、方法等。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; forwardRef, memo, useRef, useImperativeHandle &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"></span><br><span class="line">interface <span class="title class_">Props</span> &#123;</span><br><span class="line">  name?: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Index</span> = <span class="title function_">forwardRef</span>(<span class="function">(<span class="params">props: Props, ref: any</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> buttonList = [] <span class="title function_">as</span> (<span class="title class_">Element</span> | <span class="literal">null</span>)[]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">getRef</span>(<span class="params">dom: Element | <span class="literal">null</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!dom) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    buttonList.<span class="title function_">push</span>(dom)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useImperativeHandle</span>(ref, <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    buttonList</span><br><span class="line">  &#125;))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;</span></span><br><span class="line"><span class="language-xml">      [1,2,3,4,5].map((item) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">        return <span class="tag">&lt;<span class="name">button</span> <span class="attr">ref</span>=<span class="string">&#123;getRef&#125;</span> <span class="attr">key</span>=<span class="string">&#123;item&#125;</span>&gt;</span>name: &#123;props.name&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#125;)</span></span><br><span class="line"><span class="language-xml">      &#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title class_">Index</span>.<span class="property">defaultProps</span> = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;小王&#x27;</span></span><br><span class="line">&#125; <span class="keyword">as</span> <span class="title class_">Props</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">memo</span>(<span class="title class_">Index</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="禁止用户手动硕放屏幕"><a href="#禁止用户手动硕放屏幕" class="headerlink" title="禁止用户手动硕放屏幕"></a>禁止用户手动硕放屏幕</h2><p>在 index.html 添加如下脚本</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="react-样式隔离"><a href="#react-样式隔离" class="headerlink" title="react 样式隔离"></a>react 样式隔离</h2><p>目前还没有一个感觉很好的解决方案。所以只能约定命名规范，每个页面或组件的根标签的 css 类名都不能一样。</p>
+<h2 id="px-转-rem，实现页面自适应宽度"><a href="#px-转-rem，实现页面自适应宽度" class="headerlink" title="px 转 rem，实现页面自适应宽度"></a>px 转 rem，实现页面自适应宽度</h2><p>使用 amfe-flexible、postcss，将 px 转为 rem。使用 ui 库 antd-mobile。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add postcss-pxtorem postcss amfe-flexible -S</span><br></pre></td></tr></table></figure>
+
+<p>在入口文件处引入</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可伸缩布局库</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;amfe-flexible&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>在根目录创建 postcss.config.cjs</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// eslint-disable-next-line no-undef</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;postcss-pxtorem&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">rootValue</span>: <span class="number">37.5</span>, <span class="comment">// 设计稿元素尺寸/10</span></span><br><span class="line">      <span class="attr">unitPrecision</span>: <span class="number">5</span>, </span><br><span class="line">      <span class="attr">propList</span>: [<span class="string">&#x27;*&#x27;</span>], <span class="comment">// 是一个存储哪些将被转换的属性列表，这里设置为[&#x27;*&#x27;]全部，假设需要仅对边框进行设置，可以写[&#x27;*&#x27;, &#x27;!border*&#x27;]</span></span><br><span class="line">      <span class="attr">selectorBlackList</span>: [], <span class="comment">// 则是一个对css选择器进行过滤的数组，比如你设置为[&#x27;el-&#x27;]，那所有el-类名里面有关px的样式将不被转换，这里也支持正则写法。</span></span><br><span class="line">      <span class="attr">replace</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">mediaQuery</span>: <span class="literal">false</span>, <span class="comment">// 媒体查询( @media screen 之类的)中不生效</span></span><br><span class="line">      <span class="attr">minPixelValue</span>: <span class="number">0</span>, <span class="comment">// px 绝对值小于 0 的不会被转换</span></span><br><span class="line">      <span class="attr">exclude</span>: <span class="regexp">/node_modules/i</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="环境变量和模式"><a href="#环境变量和模式" class="headerlink" title="环境变量和模式"></a>环境变量和模式</h2><p>查看文档了解更多 ：</p>
+<p><a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/env-and-mode.html">https://cn.vitejs.dev/guide/env-and-mode.html</a></p>
+<p>命令行通过 –mode 选项重写模式。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;dev:test&quot;</span>: <span class="string">&quot;vite --mode test&quot;</span>,</span><br><span class="line">  <span class="string">&quot;dev:pre&quot;</span>: <span class="string">&quot;vite --mode pre&quot;</span>,</span><br><span class="line">  <span class="string">&quot;dev:prod&quot;</span>: <span class="string">&quot;vite --mode prod&quot;</span>,</span><br><span class="line">  <span class="string">&quot;build:test&quot;</span>: <span class="string">&quot;tsc &amp;&amp; vite build --mode test&quot;</span>,</span><br><span class="line">  <span class="string">&quot;build:pre&quot;</span>: <span class="string">&quot;tsc &amp;&amp; vite build --mode pre&quot;</span>,</span><br><span class="line">  <span class="string">&quot;build:prod&quot;</span>: <span class="string">&quot;tsc &amp;&amp; vite build --mode prod&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tsc：编译 TypeScript</p>
+</blockquote>
+<p>vite 会通过 dotenv 读取项目中的下列文件，以添加额外的环境变量。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 必须以 <span class="variable constant_">VITE_</span> 开头，否则为 <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"># .<span class="property">env</span>.<span class="property">test</span></span><br><span class="line"><span class="variable constant_">VITE_SHAREURL</span>=<span class="string">&#x27;https://test.share.com.cn&#x27;</span></span><br><span class="line"><span class="variable constant_">VITE_BASEURL</span>=<span class="string">&#x27;https://www.test.baidu.com&#x27;</span></span><br><span class="line"></span><br><span class="line"># .<span class="property">env</span>.<span class="property">pre</span></span><br><span class="line"><span class="variable constant_">VITE_SHAREURL</span>=<span class="string">&#x27;https://pre.share.com.cn&#x27;</span></span><br><span class="line"><span class="variable constant_">VITE_BASEURL</span>=<span class="string">&#x27;https://www.pre.baidu.com&#x27;</span></span><br><span class="line"></span><br><span class="line"># .<span class="property">env</span>.<span class="property">prod</span></span><br><span class="line"><span class="variable constant_">VITE_SHAREURL</span>=<span class="string">&#x27;https://prod.share.com.cn&#x27;</span></span><br><span class="line"><span class="variable constant_">VITE_BASEURL</span>=<span class="string">&#x27;https://www.prod.baidu.com&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样我们就可以根据环境来选择操作了。比如只有在开发模式下引入在线调试功能。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">env</span>.<span class="property">MODE</span> === <span class="string">&#x27;test&#x27;</span>) &#123;</span><br><span class="line">  <span class="comment">// eslint-disable-next-line @typescript-eslint/ban-ts-comment</span></span><br><span class="line">  <span class="comment">// @ts-ignore</span></span><br><span class="line">  <span class="keyword">import</span>(<span class="string">&#x27;https://cdn.staticfile.org/vConsole/3.3.4/vconsole.min.js&#x27;</span>).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// eslint-disable-next-line @typescript-eslint/ban-ts-comment</span></span><br><span class="line">    <span class="comment">// @ts-ignore</span></span><br><span class="line">    <span class="keyword">new</span> <span class="variable language_">window</span>.<span class="title class_">VConsole</span>();</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在生产环境下去除 log 日志和 debugger。</p>
+<p>defineConfig 可以传入一个函数，通过 config 参数可以获取到模式 mode 的值。</p>
+<p><a target="_blank" rel="noopener" href="https://cn.vitejs.dev/config/#conditional-confi">https://cn.vitejs.dev/config/#conditional-confi</a></p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(<span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">build</span>: &#123;</span><br><span class="line">      <span class="attr">minify</span>: <span class="string">&#x27;terser&#x27;</span>,</span><br><span class="line">      <span class="attr">terserOptions</span>: &#123;</span><br><span class="line">        <span class="attr">compress</span>: &#123;</span><br><span class="line">          <span class="comment">// 默认是 false。移除 console</span></span><br><span class="line">          <span class="attr">drop_console</span>: config.<span class="property">mode</span> === <span class="string">&#x27;prod&#x27;</span>,</span><br><span class="line">          <span class="comment">// 默认是 true。移除 debugger</span></span><br><span class="line">          <span class="attr">drop_debugger</span>: config.<span class="property">mode</span> === <span class="string">&#x27;prod&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包开启-gzip-压缩"><a href="#打包开启-gzip-压缩" class="headerlink" title="打包开启 gzip 压缩"></a>打包开启 gzip 压缩</h2><p>gzip 压缩可以大大节省服务器的网络带宽。</p>
+<p>啥是 gzip ？我理解的就是一个能压缩内容的工具。浏览器请求 url时，如果在 request header 中设置属性 accept-encoding: gzip，则表明浏览器支持 gzip 压缩。</p>
+<p>服务器收到浏览器发送的请求之后，判断浏览器是否支持 gzip。如果支持 gzip，则向浏览器传送 gzip 压缩过的内容，不支持则向浏览器发送未经压缩的内容。一般情况下，浏览器和服务器都支持 gzip。</p>
+<p>浏览器接收到服务器的响应之后判断内容是否被压缩，如果被压缩则解压缩后才显示页面内容。</p>
+<p>如何在 vite 项目中开启 gzip 压缩呢？首先下载插件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add rollup-plugin-gzip --save-dev</span><br></pre></td></tr></table></figure>
+
+<p>在 vite.config.ts 中</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> gzipPlugin <span class="keyword">from</span> <span class="string">&#x27;rollup-plugin-gzip&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">base</span>: <span class="string">&#x27;./&#x27;</span>,</span><br><span class="line">  <span class="attr">build</span>: &#123;</span><br><span class="line">    <span class="attr">rollupOptions</span>: &#123;</span><br><span class="line">      <span class="attr">plugins</span>: [<span class="title function_">gzipPlugin</span>()]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>接下来，打包后会发现多了个 .gz 文件，说明开启 gzip 压缩成功。</p>
+<h3 id="开发时，低版本浏览器不识别-es6-新语法问题"><a href="#开发时，低版本浏览器不识别-es6-新语法问题" class="headerlink" title="开发时，低版本浏览器不识别 es6 新语法问题"></a>开发时，低版本浏览器不识别 es6 新语法问题</h3><blockquote>
+<p>前提： 在用 vite 创建项目的时候，不要选用 SWC。SWC 不支持下面的配置。</p>
+<p>vue 项目可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ygunoil/p/15728516.html">https://www.cnblogs.com/ygunoil/p/15728516.html</a></p>
+</blockquote>
+<p>vite.config.ts 里可以配置 babel 插件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attr">plugins</span>: [<span class="title function_">react</span>(&#123;</span><br><span class="line">  <span class="attr">babel</span>: &#123;</span><br><span class="line">    <span class="attr">plugins</span>: [</span><br><span class="line">      <span class="string">&quot;@babel/plugin-proposal-optional-chaining&quot;</span>,</span><br><span class="line">      <span class="string">&quot;@babel/plugin-proposal-nullish-coalescing-operator&quot;</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)],</span><br></pre></td></tr></table></figure>
+
+<p>我们直接在根目录下的 .babelrc 里进行配置。使用 babel 的预设 preset-env，免得一个个配插件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">plugins</span>: [</span><br><span class="line"> <span class="title function_">react</span>(&#123;</span><br><span class="line">   <span class="attr">babel</span>: &#123;</span><br><span class="line">       <span class="comment">// 表示使用根目录下 .babelrc 文件的 babel 配置</span></span><br><span class="line">       <span class="attr">babelrc</span>: <span class="literal">true</span>,</span><br><span class="line">   &#125;,</span><br><span class="line"> &#125;)</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<p>.babelrc</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;presets&quot;</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;@babel/preset-env&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;modules&quot;</span>: <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;targets&quot;</span>: <span class="string">&quot;chrome 70&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置好后 vite 就可以使用可选链和空值合并运算符等 es6 新语法了。</p>
+<h3 id="配置-alias-时，提示找不到-path"><a href="#配置-alias-时，提示找不到-path" class="headerlink" title="配置 alias 时，提示找不到 path"></a>配置 alias 时，提示找不到 path</h3><p>在 ts + vite 项目里提示 “path” 找不到。</p>
+<p>原因分析：path 模块是 node.js 内置的功能，但是 node.js 本身并不支持 typescript，所以直接在 typescript 项目里使用是不行的。</p>
+<p>解决办法</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">npm</span> install <span class="variable">@types</span>/node --save-dev</span><br></pre></td></tr></table></figure>
+
+<p><img src="/hexo_blog/images/2024/09/08/640.png" alt="图片"></p>
+<p>这样我们就方便配置 alias 了。因为它的路径必须是绝对路径。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123; </span><br><span class="line">  <span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">      <span class="comment">// 只能是绝对路径</span></span><br><span class="line">      <span class="comment">// &#x27;@&#x27;: fileURLToPath(new URL(&#x27;./src&#x27;, import.meta.url)),</span></span><br><span class="line">      <span class="string">&#x27;@&#x27;</span>: path.<span class="title function_">resolve</span>(<span class="string">&#x27;./src&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="让打包后的代码支持低版本浏览器"><a href="#让打包后的代码支持低版本浏览器" class="headerlink" title="让打包后的代码支持低版本浏览器"></a>让打包后的代码支持低版本浏览器</h3><p>vite 开发和打包的构建逻辑是不一样的。默认打包的目标是支持原生 ESM script 标签、支持原生 ESM 动态导入和 import.meta的浏览器：</p>
+<ul>
+<li>Chrome &gt;&#x3D;87</li>
+<li>Firefox &gt;&#x3D;78</li>
+<li>Safari &gt;&#x3D;14</li>
+<li>Edge &gt;&#x3D;88</li>
+</ul>
+<p>为了让打包后的代码支持传统浏览器，可以使用 legacy 插件。否则如果你的代码使用了可选链、控制合并运算符等 es6 新语法新特性，打包运行低版本浏览器是会报错的。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pnpm</span> add -D <span class="variable">@vitejs</span>/plugin-legacy</span><br></pre></td></tr></table></figure>
+
+<p>vite.config.ts</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">plugins</span>: [</span><br><span class="line">  <span class="title function_">legacy</span>(&#123;</span><br><span class="line">    <span class="attr">targets</span>: [<span class="string">&#x27;&gt; 0.25%&#x27;</span>, <span class="string">&#x27;last 2 versions and not dead&#x27;</span>],</span><br><span class="line">  &#125;),</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码之外的东西"><a href="#代码之外的东西" class="headerlink" title="代码之外的东西"></a>代码之外的东西</h2><h3 id="常用的脚本命令"><a href="#常用的脚本命令" class="headerlink" title="常用的脚本命令"></a>常用的脚本命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在当前目录下，把 文件 a 及以下文件移动到 b 目录下（改名也可以用这个命令）</span></span><br><span class="line">mv a b</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建一个文件夹</span></span><br><span class="line">mkdir test</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建一个文件</span></span><br><span class="line">touch hello.md</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前目录下所有东西</span></span><br><span class="line">ls</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除文件或文件夹</span></span><br><span class="line">rm 文件名</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除文件及以下的文件</span></span><br><span class="line">rm -rf xxx</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 shell 全局变量</span></span><br><span class="line">env</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输出全局变量</span></span><br><span class="line">echo $HOME or $HOME</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前文件目录</span></span><br><span class="line">pwd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">清空命令行窗口</span></span><br><span class="line">clear</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">printenv</span> 查看某个环境变量，变量前不用加 $ 符号了</span></span><br><span class="line">printenv HOME </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">echo</span> 查看某个环境变量，变量前要加 $ 符号</span></span><br><span class="line">echo $HOME 或者 echo $&#123;HOME&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2024/09/08/2024/09/08/react/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo_blog/tags/react/" rel="tag">react</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/hexo_blog/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_html/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">前端面试题 - HTML篇</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2024
+        <i class="ri-heart-fill heart_icon"></i> Sun Chao Qun
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/hexo_blog/"><img src="/hexo_blog/images/ayer-side.svg" alt="个人博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/2024/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/hexo_blog/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/hexo_blog/images/alipay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/hexo_blog/images/wechat.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/hexo_blog/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/hexo_blog/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/hexo_blog/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/hexo_blog/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/hexo_blog/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/hexo_blog/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

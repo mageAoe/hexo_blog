@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>前端面试题 - Javascript补充篇 |  个人博客</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/hexo_blog/dist/main.css">
+
+      
+<link rel="stylesheet" href="/hexo_blog/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/hexo_blog/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-2024/09/08/面试题_js补充"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端面试题 - Javascript补充篇
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/hexo_blog/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_js%E8%A1%A5%E5%85%85/" class="article-date">
+  <time datetime="2024-09-07T16:00:00.000Z" itemprop="datePublished">2024-09-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/hexo_blog/categories/%E5%89%8D%E7%AB%AF/">前端</a> / <a class="article-category-link" href="/hexo_blog/categories/%E5%89%8D%E7%AB%AF/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a> / <a class="article-category-link" href="/hexo_blog/categories/%E5%89%8D%E7%AB%AF/%E9%9D%A2%E8%AF%95%E9%A2%98/Javascript%E8%A1%A5%E5%85%85/">Javascript补充</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">33 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>前端面试题 - Javascript补充篇</p>
+<span id="more"></span>
+
+<h1 id="JS补充"><a href="#JS补充" class="headerlink" title="JS补充"></a>JS补充</h1><h2 id="1-undefined和null有什么区别？"><a href="#1-undefined和null有什么区别？" class="headerlink" title="1.undefined和null有什么区别？"></a>1.undefined和null有什么区别？</h2><p>在了解它们之间的差异之前，我们首先要了解它们之间的相似之处。</p>
+<ul>
+<li>它们都属于 JavaScript 的 7 种原始类型当中。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string、number、null、undefined、boolean、symbol、bigint</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>它们是虚值。使用Boolean(value) 或!!value 将其转换为布尔值时计算结果为 false的值</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-1.png" alt="图片"></p>
+<p>让我们来谈谈两者的差异</p>
+<ul>
+<li>undefined是尚未分配特定值的变量的默认值。或者没有明确显式console.log(1)返回值的函数，或对象中不存在的属性。JavaScript 引擎为我们分配了undefined值。</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-2.png" alt="图片"></p>
+<ul>
+<li>null是 “不代表任何值的值”。 null已被明确定义为变量的值。在此示例中，当fs.readFile该方法不抛出错误时，我们得到一个null值。</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-3.png" alt="图片"></p>
+<p>比较null和undefined时，我们得到了我们得到true，当我们使用&#x3D;&#x3D;和false时，我们同时也在使用时&#x3D;&#x3D;&#x3D;</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-4.png" alt="图片"></p>
+<h2 id="2-运算符是做什么的？"><a href="#2-运算符是做什么的？" class="headerlink" title="2. &amp;&amp;运算符是做什么的？"></a>2. &amp;&amp;运算符是做什么的？</h2><p>&amp;&amp;或逻辑AND 运算符在其操作数中找到第一个falsy表达式并返回它，如果未找到任何 falsy 表达式，则返回最后一个表达式。它采用短路来防止不必要的工作。在我的一个项目中关闭数据库连接时，我在catch块中使用它。<br><img src="/hexo_blog/images/2024/09/08/js-1-5.png" alt="图片"></p>
+<p>使用 if 语句</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-6.png" alt="图片"></p>
+<p>使用&amp;&amp; 运算符</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-7.png" alt="图片"></p>
+<h2 id="3-运算符是做什么的？"><a href="#3-运算符是做什么的？" class="headerlink" title="3. ||运算符是做什么的？"></a>3. ||运算符是做什么的？</h2><p>||或逻辑OR 运算符在其操作数中找到第一个真表达式并返回它。这也使用短路来防止不必要的工作。在支持 ES6 默认函数参数之前，它以前用于初始化函数中的默认参数值。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-8.png" alt="图片"></p>
+<h2 id="4-使用-或一元加号运算符是将字符串转换为数字的最快方法吗？"><a href="#4-使用-或一元加号运算符是将字符串转换为数字的最快方法吗？" class="headerlink" title="4.使用 + 或一元加号运算符是将字符串转换为数字的最快方法吗？"></a>4.使用 + 或一元加号运算符是将字符串转换为数字的最快方法吗？</h2><p>根据 MDN文档，+是将字符串转换为数字的最快方法，因为如果它已经是一个数字，它不会对该值执行任何操作。</p>
+<h2 id="5-什么是dom？"><a href="#5-什么是dom？" class="headerlink" title="5. 什么是dom？"></a>5. 什么是dom？</h2><p>DOM 代表文档对象模型是HTML 和XML 文档的接口 （API）。当浏览器第一次读取我们的HTML文档时，它会创建一个大对象，一个基于HTML文档的非常大的对象，这就是DOM。它是从HTML文档建模的树状结构。DOM 用于交互和修改 DOM结构或特定的元素或节点。</p>
+<p>想象一下，如果我们有一个这样的HTML结构。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-9.png" alt="图片"><br>DOM 相当于是这样的。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-10.png" alt="图片"></p>
+<p>document在JavaScript 中的对象表示 DOM。它为我们提供了许多方法，我们可以用来选择元素以更新元素内容等等。</p>
+<h2 id="6-什么是事件传播？"><a href="#6-什么是事件传播？" class="headerlink" title="6.什么是事件传播？"></a>6.什么是事件传播？</h2><p>当一个事件发生在 DOM 元素上时，该事件不会完全发生在一个元素上。在冒泡阶段，事件冒泡或传到它的父级、祖父母、祖父母的父级，直到一直到达，而在捕获阶段，windowwindow事件从下到触发事件的元素或事件目标 。</p>
+<p><strong>事件传播有三个阶段。</strong></p>
+<p>1）捕获阶段 – 事件从window然后向下到每个元素，直到到达目标元素。</p>
+<p>2）目标阶段 – 事件已到达目标元素。</p>
+<p>3）冒泡阶段 – 事件从目标元素向上冒泡，然后每个元素上升，直到到达window。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-11.png" alt="图片"></p>
+<h2 id="7-什么是事件冒泡？"><a href="#7-什么是事件冒泡？" class="headerlink" title="7.什么是事件冒泡？"></a>7.什么是事件冒泡？</h2><p>当一个事件发生在 DOM 元素上时，该事件不会完全发生在一个元素上。在冒泡阶段，事件冒泡，或者它去它的父，它的祖父母，它的祖父母，它的祖父母的父母，直到它一直到达window。</p>
+<p>我们有这样的示例标记<br><img src="/hexo_blog/images/2024/09/08/js-1-12.png" alt="图片"></p>
+<p>还有js代码<br><img src="/hexo_blog/images/2024/09/08/js-1-13.png" alt="图片"></p>
+<p>addEventListener方法有第三个可选参数（默认为 false）用户捕获false带有默认值的事件将发生在冒泡阶段，如果true发生在事件捕获阶段，如果我们单击它记录的child元素和分别在window document html grandparent parent child上，这是事件冒泡</p>
+<h2 id="8-什么是事件捕获？"><a href="#8-什么是事件捕获？" class="headerlink" title="8.什么是事件捕获？"></a>8.什么是事件捕获？</h2><p>当一个事件发生在 DOM 元素上时，该事件不会完全发生在一个元素上。在捕获阶段中，事件从一直到触发事件的元素开始。</p>
+<p>如果我们有这样的示例标记。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-14.png" alt="图片"></p>
+<p>还有我们的js代码。<br><img src="/hexo_blog/images/2024/09/08/js-1-15.png" alt="图片"></p>
+<p>该方法具有第三个可选参数 useCapture，如果事件将在捕获阶段发生，则事件的默认值将在冒泡阶段发生。如果我们单击该元素，它会记录控制台上的元素。这是事件捕获。</p>
+<h2 id="9-event-preventDefault-event-stopPropagation-方法有什么区别？"><a href="#9-event-preventDefault-event-stopPropagation-方法有什么区别？" class="headerlink" title="9.event.preventDefault()event.stopPropagation()方法有什么区别？"></a>9.event.preventDefault()event.stopPropagation()方法有什么区别？</h2><p>event.preventDefault()方法防止元素的默认行为。如果在元素中使用它可以防止form它从提交。如果在元素中使用它可以防止anchor它从导航。如果用在一个它可以防止contextmenuevent.stopPropagation()它从显示或展示。当方法停止传播事件或阻止事件发生在冒泡或捕获阶段</p>
+<h2 id="10-如何知道元素中是否使用event-preventDefault-方法？"><a href="#10-如何知道元素中是否使用event-preventDefault-方法？" class="headerlink" title="10.如何知道元素中是否使用event.preventDefault()方法？"></a>10.如何知道元素中是否使用event.preventDefault()方法？</h2><p>我们可以在事件对象中使用event.defaultPrevented属性。它返回一个boolean，指示是否在特定元素中调用event.preventDefault()。</p>
+<h2 id="11-为什么obj-someprop-x会抛出错误？"><a href="#11-为什么obj-someprop-x会抛出错误？" class="headerlink" title="11.为什么obj.someprop.x会抛出错误？"></a>11.为什么obj.someprop.x会抛出错误？</h2><p><img src="/hexo_blog/images/2024/09/08/js-1-16.png" alt="图片"></p>
+<p>显然，由于我们试图访问xsomeprop属性中具有undefined值的属性。记住，本身不存在的对象中的属性，其原型的默认值为undefined，undefined属性就是没有属性。</p>
+<h2 id="12、什么是event-target？"><a href="#12、什么是event-target？" class="headerlink" title="12、什么是event.target？"></a>12、什么是event.target？</h2><p>最简单的术语来说，event.target是发生事件的元素或触发事件的元素。</p>
+<p>HTML标记示例</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-17.png" alt="图片"></p>
+<p>示例JavaScript</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-18.png" alt="图片"></p>
+<p>如果你单击按钮，它将记录按钮标记，即使我们在最外层的div上附加事件，它也会始终记录按钮，以便我们可以得出结论，event.target是触发事件的元素。</p>
+<h2 id="13．什么是event-currentTarget？"><a href="#13．什么是event-currentTarget？" class="headerlink" title="13．什么是event.currentTarget？"></a>13．什么是event.currentTarget？</h2><p>event.currentTarget是我们显式附加事件处理程序的元素。</p>
+<p>HTML标记示例<br><img src="/hexo_blog/images/2024/09/08/js-1-19.png" alt="图片"><br>稍微改变我们的JS<br><img src="/hexo_blog/images/2024/09/08/js-1-20.png" alt="图片"></p>
+<p>如果你单击按钮，即使我们单击按钮，它也会记录最外层的标记。在本例中，我们可以得出结论，event.currentTarget是我们附加事件处理程序的元素。</p>
+<h2 id="14-和-有什么区别？"><a href="#14-和-有什么区别？" class="headerlink" title="14.&#x3D;&#x3D;和&#x3D;&#x3D;&#x3D;有什么区别？"></a>14.&#x3D;&#x3D;和&#x3D;&#x3D;&#x3D;有什么区别？</h2><p>&#x3D;&#x3D;（抽象等式）和&#x3D;&#x3D;&#x3D;（严格等式）的区别在于，&#x3D;&#x3D;在强制后按值进行比较，&#x3D;&#x3D;&#x3D;按值和类型进行比较，而不受coercion<br>让我们更深入地挖掘&#x3D;&#x3D;。所以首先让我们谈谈coercion。</p>
+<p>coercion是将一个值转换为另一种类型的过程。在这种情况下，&#x3D;&#x3D;确实隐含了coercion。在比较这两个值之前，&#x3D;&#x3D;有一些条件需要执行。</p>
+<p>假设我们必须比较x &#x3D;&#x3D; y值。</p>
+<p>如果x和y有相同的类型。然后将它们与&#x3D;&#x3D;&#x3D;运算符进行比较。</p>
+<p>如果x为null，yundefined，则返回true。</p>
+<p>如果xundefined，并且y为null，则返回true。</p>
+<p>如果x是类型number，而y是类型string，则返回x &#x3D;&#x3D; toNumber(y)</p>
+<p>如果x是类型string，y是类型number，那么返回toNumber(x) &#x3D;&#x3D; y。</p>
+<p>如果x是boolean类型，则返回toNumber(x) &#x3D;&#x3D; y。</p>
+<p>如果y是boolean类型，则返回x &#x3D;&#x3D; toNumber(y)</p>
+<p>如果x是string，symbol或numbery是类型object，则返回x &#x3D;&#x3D; toPrimitive(y)</p>
+<p>如果x是任一object，x是任一string，symbol，则返回toPrimitive(x) &#x3D;&#x3D; y。</p>
+<p>返回false。</p>
+<p>注意：toPrimitive首先使用valueOf方法，然后在对象中使用toString方法来获取该对象的原始值。<br><img src="/hexo_blog/images/2024/09/08/js-1-21.png" alt="图片"></p>
+<p>这些示例都返回true。</p>
+<p>第一个例子是条件一，因为x和y具有相同的类型和值。</p>
+<p>第二个例子是条件四y比较之前转换为number。</p>
+<p>第三个例子是条件二。</p>
+<p>第四个例子是条件7，因为y是boolean。</p>
+<p>第五个例子是条件八。数组使用返回1,2的toString()方法转换为string。</p>
+<p>最后一个例子是条件十。使用toString()方法将对象转换为返回[object Object]的string<br><img src="/hexo_blog/images/2024/09/08/js-1-22.png" alt="图片"></p>
+<h2 id="15-为什么在JS中比较两个相似的对象时回-false？"><a href="#15-为什么在JS中比较两个相似的对象时回-false？" class="headerlink" title="15.为什么在JS中比较两个相似的对象时回 false？"></a>15.为什么在JS中比较两个相似的对象时回 false？</h2><p>假设我们下面有一个例子。<br><img src="/hexo_blog/images/2024/09/08/js-1-23.png" alt="图片"></p>
+<p>JavaScript对对象和原始值的比较不同。在原始值中，它们按值比较，而在对象中，它通过引用或存储变量的内存中的地址来比较它们。这就是为什么first console console.log语句返回false，第二个console.log语句返回true。a和c具有相同的引用，而a和b则不返回true。</p>
+<h2 id="16-双非运算符是做什么的？"><a href="#16-双非运算符是做什么的？" class="headerlink" title="16. 双非运算符是做什么的？"></a>16. 双非运算符是做什么的？</h2><p>双非运算符将右侧的值强制转换为布尔值。基本上，这是一种将值转换为布尔值的花哨方式。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-24.png" alt="图片"></p>
+<h2 id="17-如何在一行中计算多个表达式？"><a href="#17-如何在一行中计算多个表达式？" class="headerlink" title="17.如何在一行中计算多个表达式？"></a>17.如何在一行中计算多个表达式？</h2><p>我们可以使用逗号运算符在一行中计算多个表达式。它从左到右计算，并返回右侧或最后一个操作数最后一个项目的值<br><img src="/hexo_blog/images/2024/09/08/js-1-25.png" alt="图片"><br>如果你记录x的值，那就是27。首先，我们将x的值增加为6，然后我们调用函数addFive(6)，传递6作为参数，并将结果分配给x，x的新值为11。之后，我们将x的当前值乘以2，并将其分配给x，更新的x值为22。然后，我们将x的当前值减去5，并将结果分配给x，更新后的值为17。最后，我们将x的值增加10，并将更新的值分配给x，现在x的值将是27</p>
+<h2 id="18-什么是Hoisting（提升）？"><a href="#18-什么是Hoisting（提升）？" class="headerlink" title="18.什么是Hoisting（提升）？"></a>18.什么是Hoisting（提升）？</h2><p>Hoisting是一个术语，用于描述变量和函数移动到其（全局或函数）范围的顶部，我们在哪里定义该变量或函数。</p>
+<p>好的，为了理解Hoisting，我必须解释执行上下文。</p>
+<p>执行上下文是当前正在执行的“代码环境”。执行上下文有两个阶段编译和执行。</p>
+<p>编译-在此阶段，它获取所有函数声明，并将其提升到其范围的顶部，以便我们稍后可以引用它们，并获得所有变量声明（用var关键字声明），并提升它们，并给它们一个未定义的默认值。</p>
+<p>执行-在此阶段，它将值分配给之前提升的变量，并执行或调用函数（对象中的方法）。</p>
+<p>注意：只有使用var关键字声明的函数声明和变量才被保留，而不是函数表达式或arrow函数，let和const关键字。</p>
+<p>好的，假设我们在下面的全局范围内有一个示例代码。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-26.png" alt="图片"><br>此代码分别记录undefined，1，Hello Mark!</p>
+<p>因此，编译阶段如下所示。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-27.png" alt="图片"></p>
+<p>例如，我改变了变量和函数调用的分配。</p>
+<p>编译阶段完成后，它将开始执行阶段，调用方法并将值分配给变量。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-28.png" alt="图片"></p>
+<h2 id="19-什么是范围？"><a href="#19-什么是范围？" class="headerlink" title="19.什么是范围？"></a>19.什么是范围？</h2><p>JavaScript中的范围是我们可以有效访问变量或函数的区域。JavaScript有三种类型的作用域。全局作用域、函数作用域和块作用域（ES6）。</p>
+<ul>
+<li>全局作用域 - 在全局命名空间中声明的变量或函数位于全局作用域中，因此可以在代码中的任何地方访问</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-29.png" alt="图片"></p>
+<ul>
+<li>函数范围 - 函数内声明的变量、函数和参数可以在函数内部访问，但不能在函数外部访问。</li>
+</ul>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-30.png" alt="图片"><br>块作用域 - 在块{}内声明的变量（let，const）只能在块内访问。<br><img src="/hexo_blog/images/2024/09/08/js-1-31.png" alt="图片"></p>
+<p>范围也是一组用于查找变量的规则。如果当前范围内不存在一个变量，它会查找并在外部作用域中搜索一个变量，如果再次不存在，它会再次查找，直到到达全局范围，如果变量存在，那么我们可以使用它，如果不存在，它会抛出错误。它搜索最近的变量，一旦找到它，它就会停止搜索或查找。这称为作用域链<br><img src="/hexo_blog/images/2024/09/08/js-1-32.png" alt="图片"></p>
+<h2 id="20-什么是-Closures（闭包）"><a href="#20-什么是-Closures（闭包）" class="headerlink" title="20.什么是 Closures（闭包）"></a>20.什么是 Closures（闭包）</h2><p>Closures只是函数在声明时记住变量和参数在其当前作用域、父函数作用域、父函数作用域上的引用的能力，直到它借助作用域链到达全局作用域。基本上，它是声明函数时创建的 Scope</p>
+<p>示例是解释 Closures的好方法。<br><img src="/hexo_blog/images/2024/09/08/js-1-33.png" alt="图片"><br>在这个例子中，当我们声明函数时，全局范围是Closures的一部分。</p>
+<p>变量globalVar在图像中没有值的原因，因为该变量的值可能会根据我们调用函数的位置和时间而变化。</p>
+<p>但在我们上面的例子中，globalVar变量的值为abc。</p>
+<p>让我们举一个复杂的例子。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-34.png" alt="图片"></p>
+<p>对此的解释是，当我们调用outerFunc函数并将返回的值innerFunc函数分配给变量x时，outerParam将具有外部值，即使我们为outerVar变量分配一个新的值outer-2，因为重新分配发生在调用outer函数之后，在那个时候，当我们调用outerFunc函数时，它会在范围链中查找outerVar的值，outerVar的值将为“outer”。现在，当我们调用引用innerFunc的x变量时，innerParam将有一个内部值，因为这是我们在调用中传递的值，globalVar变量将具有猜测值，因为在调用x变量之前，我们将为globalVar分配一个新值，在调用x时，范围链中globalVar的值是猜测。</p>
+<p>我们有一个例子，表明存在不正确理解Closures的问题。</p>
+<p><img src="/hexo_blog/images/2024/09/08/js-1-35.png" alt="图片"></p>
+<p>由于Closures，此代码无法正常工作。</p>
+<p>var关键字构成全局变量，当我们推送函数时我们返回全局变量i。因此，当我们在循环后调用该数组中的其中一个函数时，它会记录5，因为我们得到i的当前值是5，我们可以访问它，因为它是一个全局变量。因为闭包会保留该变量的引用，而不是创建时的值。我们可以使用IIFIES或更改var关键字以进行块范围界定来解决这个问题</p>
+<h2 id="22-JS由那三部分组成"><a href="#22-JS由那三部分组成" class="headerlink" title="22. JS由那三部分组成"></a>22. JS由那三部分组成</h2><ol>
+<li>ECMAScript</li>
+<li>文档对象模型（DOM）</li>
+<li>浏览器对象模型（BOM）： 对浏览器窗口进行访问和操作</li>
+</ol>
+<h2 id="23-JS有那些内置对象"><a href="#23-JS有那些内置对象" class="headerlink" title="23. JS有那些内置对象"></a>23. JS有那些内置对象</h2><p>String Boolean Number Array Object Function Math Date RegExp…</p>
+<ul>
+<li>常用的：<ul>
+<li>Math</li>
+<li>Date</li>
+<li>Array</li>
+<li>String</li>
+</ul>
+</li>
+</ul>
+<h2 id="24-操作数组的方法有哪些"><a href="#24-操作数组的方法有哪些" class="headerlink" title="24. 操作数组的方法有哪些"></a>24. 操作数组的方法有哪些</h2><p>push 、 pop 、 sort 、 splice、 unshift 、 shift 、reverse 、 concat 、 join、map、filter、every、some、forEach、reduce、isArray、findIndex、find、includes、slice</p>
+<p>哪些方法会改变原数组？<br>push、pop、unshift、shift、sort、reverse、splice</p>
+<h2 id="25-JS数据类的检测方式有哪些"><a href="#25-JS数据类的检测方式有哪些" class="headerlink" title="25. JS数据类的检测方式有哪些"></a>25. JS数据类的检测方式有哪些</h2><p>typeof() : 对于基本数据类型没问题，遇到引用数据类型就不管用<br>instanceof() ： 只能判断引用数据类型，不能判断基本数据类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>([] <span class="keyword">instanceof</span> <span class="title class_">Array</span>);<span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;abc&#x27;</span> <span class="keyword">instanceof</span> <span class="title class_">String</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>constructor : 几乎可以判断基本数据类型和引用数据类型；如果声明了一个构造函数，并把它的原型指向了Array</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&#x27;abc&#x27;</span>).<span class="property">constructor</span> === <span class="title class_">String</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">let</span> arr = []</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="property">constructor</span> === <span class="title class_">Array</span>) <span class="comment">// true</span></span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="property">constructor</span> === <span class="title class_">Object</span>) <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">let</span> arr = []</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="property">constructor</span> === <span class="title class_">Array</span>); <span class="comment">// true</span></span><br><span class="line"> <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">constructor</span> = <span class="string">&#x27;a&#x27;</span> </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="property">constructor</span> === <span class="title class_">Array</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>Object.prototype.toString.call ： 可以完美解决上面的问题</p>
+<h2 id="26-说一下闭包，闭包有什么特点"><a href="#26-说一下闭包，闭包有什么特点" class="headerlink" title="26. 说一下闭包，闭包有什么特点"></a>26. 说一下闭包，闭包有什么特点</h2><p>什么是闭包？ 函数嵌套函数，内部函数被外部函数返回并保存下来时，就会产生闭包<br>特点： 可以重复利用变量，并且这个变量不会污染全局的一种机制；这个变量是一直保存再内存中，不会被垃圾回收机制回收<br>缺点：闭包较多的时候，会消耗内存，导致页面的性能下降，再IE浏览器中才会导致内存泄漏<br>使用场景： 防抖、节流，函数嵌套函数避免全局污染的时候</p>
+<h2 id="27-前端的内存泄露有什么理解"><a href="#27-前端的内存泄露有什么理解" class="headerlink" title="27. 前端的内存泄露有什么理解"></a>27. 前端的内存泄露有什么理解</h2><p>JS里已经分配内存地址的对象，但是由于长时间没有释放或者没办法清除，造成长期占用内存的现象，会让内存资源大幅浪费，最终导致运行速度慢，甚至崩溃的情况</p>
+<p>垃圾回收机制<br>因素： 一些未声明直接赋值的变量；一些未清空的定时器；过度的闭包；一些引用元素没有清除 </p>
+<h2 id="28-事件委托是什么"><a href="#28-事件委托是什么" class="headerlink" title="28. 事件委托是什么"></a>28. 事件委托是什么</h2><p>又叫事件代理，原理就是利用事件冒泡的机制来实现，也就是说把子元素的事件绑定到了父元素身上<br>如果子元素阻止了事件冒泡，那么委托也就不成立了<br>阻止事件冒泡： event.stopPropagation()<br>addEVentListener(‘click’,函数名,true&#x2F;false) 默认值false（事件冒泡），true（事件捕获）<br>好处： 提高性能，减少事件的绑定，也就减少了内存的占用（react的事件就是 事件委托，绑定再root身上）</p>
+<h2 id="29-基本数据类型和引用数据类型的区别"><a href="#29-基本数据类型和引用数据类型的区别" class="headerlink" title="29. 基本数据类型和引用数据类型的区别"></a>29. 基本数据类型和引用数据类型的区别</h2><ul>
+<li>基本数据类型：String、number、Boolean、null、undefined<ul>
+<li>基本数据类型保存再栈内存中，保存的就是一个具体的值</li>
+</ul>
+</li>
+<li>引用数据类型（复杂数据类型）：Object、Function、Array<ul>
+<li>保存在堆内存中，声明一个引用类型的变量，它保存的是引用类型数据的地址</li>
+<li>假如声明两个引用类型同时指向了一个地址的时候，修改其中一个那么另一个也会改变</li>
+</ul>
+</li>
+</ul>
+<h2 id="30-说一下原型链"><a href="#30-说一下原型链" class="headerlink" title="30. 说一下原型链"></a>30. 说一下原型链</h2><p>原型就是一个普通对象，它是为构造函数的实例共享属性和方法；所有实例中引用的原型都是同一个对象<br>使用prototype可以把方法挂在原型上，内存只保存一份</p>
+<p><strong>proto</strong> 可以理解为指针，实例对象中的属性，指向了构造函数的原型（prototype）<br>一个实例对象在调用属性和方法的时候，会依次从实例本身、构造函数原型、原型的原型上去查找</p>
+<h2 id="31-new-操作符具体做了什么"><a href="#31-new-操作符具体做了什么" class="headerlink" title="31. new 操作符具体做了什么"></a>31. new 操作符具体做了什么</h2><ol>
+<li>先创建一个空对象</li>
+<li>把空对象和构造函数通过原型链进行链接</li>
+<li>把构造函数的this绑定到新的空对象身上</li>
+<li>根据构造函数返回的类型判断，如果是值类型，则返回对象，如果是引用类型，就要返回这个引用类型</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">newFun</span>(<span class="params">fun,...args</span>)&#123;</span><br><span class="line">        <span class="comment">// 1. 先创建一个空对象</span></span><br><span class="line">        <span class="keyword">let</span> newObj = &#123;&#125;</span><br><span class="line">        <span class="comment">// 2. 把空对象和构造函数通过原型链进行链接</span></span><br><span class="line">        newObj.<span class="property">__proto__</span> = fun.<span class="property"><span class="keyword">prototype</span></span></span><br><span class="line">        <span class="comment">// 3. 把构造函数的this绑定到新的空对象身上</span></span><br><span class="line">        <span class="keyword">const</span> result = fun.<span class="title function_">apply</span>(newObj, args)</span><br><span class="line">        <span class="comment">// 4. 根据构造函数返回的类型判断，如果是值类型，则返回对象，如果是引用类型，就要返回这个引用类型</span></span><br><span class="line">        <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="title class_">Object</span>? result : newObj</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;say&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> son = <span class="title function_">newFun</span>(<span class="title class_">Person</span>, <span class="string">&#x27;李四&#x27;</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(son); <span class="comment">// Person &#123;name: &#x27;李四&#x27;&#125;</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(son.<span class="title function_">say</span>()); <span class="comment">// say</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="32-JS是如何实现继承的"><a href="#32-JS是如何实现继承的" class="headerlink" title="32. JS是如何实现继承的"></a>32. JS是如何实现继承的</h2><ol>
+<li>原型链继承<ul>
+<li>让一个构造函数的原型是另一个类型的实例，那么这个构造函数new 出来的实例就具有该实例的属性<br>优点： 写法方便简洁，容易理解<br>缺点： 对象共享所有继承的属性和方法。无法向父类构造函数传参</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>)&#123;</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">isShow</span> = <span class="literal">true</span></span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">info</span> = &#123;</span><br><span class="line">           <span class="attr">name</span>: <span class="string">&#x27;abc&#x27;</span>,</span><br><span class="line">           <span class="attr">age</span>: <span class="number">19</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">   <span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">const</span> child1 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line">   child1.<span class="property">info</span>.<span class="property">gender</span> = <span class="string">&#x27;男&#x27;</span></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(child1.<span class="property">isShow</span>); <span class="comment">// true</span></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(child1.<span class="property">info</span>); <span class="comment">// &#123;name: &#x27;child1&#x27;, age: 19&#125;</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">const</span> child2 = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line">   child2.<span class="property">info</span>.<span class="property">age</span> = <span class="number">22</span></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(child2.<span class="property">info</span>.<span class="property">gender</span>); <span class="comment">// 男</span></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(child2.<span class="property">info</span>); <span class="comment">// &#123;name: &#x27;child1&#x27;, age: 19&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>借用构造函数继承<ul>
+<li>在子类型构造函数的内部调用父类型构造函数；使用apply() or call() 方法将父对象的构造函数绑定在子对象上<br>优点： 解决了原型链实现继承的不能传参的问题和父类的原型共享的问题<br>缺点： 借用构造函数的缺点是方法都在构造函数中定义，因此无法实现函数复用。<br>  在父类型的原型中定义的方法，对子类型而言也是不可见的，结果所有类型都只能使用构造函数模式</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params">gender</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">isShow</span> = <span class="literal">true</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">info</span> = &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;abc&#x27;</span>,</span><br><span class="line">        <span class="attr">age</span>: <span class="number">19</span>,</span><br><span class="line">        <span class="attr">gender</span>: gender</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params">gender</span>)&#123;</span><br><span class="line">    <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, gender)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> child1 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">child1.<span class="property">info</span>.<span class="property">nextName</span> = <span class="string">&#x27;xxxx&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(child1.<span class="property">info</span>); <span class="comment">// &#123;name: &#x27;abc&#x27;, age: 19, gender: &#x27;男&#x27;, nextName: &#x27;xxxx&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> child2 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;女&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(child2.<span class="property">info</span>); <span class="comment">// &#123;name: &#x27;abc&#x27;, age: 19, gender: &#x27;女&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>组合式继承<ul>
+<li>将原型链 和 借用构造函数 的组合到块。使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数复用，又能保证每个实例都有自己的属性<br>优点： 就是解决了原型链继承和借用构造函数继承造成的影响<br>缺点： 是无论什么情况下，都会调用两次构造函数： 一次是在创建子类原型的时候，另一次是在子类构造函数内部</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params">gender</span>)&#123;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;调用一次&#x27;</span>);</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">isShow</span> = <span class="literal">true</span></span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">info</span> = &#123;</span><br><span class="line">           <span class="attr">name</span>: <span class="string">&#x27;abc&#x27;</span>,</span><br><span class="line">           <span class="attr">age</span>: <span class="number">19</span>,</span><br><span class="line">           <span class="attr">gender</span>: gender</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">print</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123; <span class="comment">// 使用原型链继承原型上的属性和方法</span></span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">gender</span>,<span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params">gender</span>)&#123;</span><br><span class="line">       <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>, gender) <span class="comment">// 使用构造函数传递参数</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">const</span> child1 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">   child1.<span class="property">info</span>.<span class="property">nextName</span> = <span class="string">&#x27;xxxx&#x27;</span></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(child1.<span class="property">info</span>); <span class="comment">// &#123;name: &#x27;abc&#x27;, age: 19, gender: &#x27;男&#x27;, nextName: &#x27;xxxx&#x27;&#125;</span></span><br><span class="line">   child1.<span class="title function_">print</span>() <span class="comment">// 男 abc</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">const</span> child2 = <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;女&#x27;</span>)</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(child2.<span class="property">info</span>); <span class="comment">// &#123;name: &#x27;abc&#x27;, age: 19, gender: &#x27;女&#x27;&#125;</span></span><br><span class="line">   child2.<span class="title function_">print</span>() <span class="comment">// 女 abc</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>ES6的class类继承<ul>
+<li>class 通过extends 关键字实现继承，其实质是先创造出父类的this对象，然后用子类的构造函数修改this；子类的构造方法中必须调用super方法，且只有在调用了super()之后才能使用this，因为子类的this对象是继承父类的this对象，然后对其进行加工，而super方法表示的是父类的构造函数，用来新建父类的this对象<br>优点：语法简单易懂，操作方便<br>缺点： 并不是所有的浏览器都支持class关键字</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span>&#123;</span><br><span class="line">        <span class="title function_">constructor</span>(<span class="params">kind</span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">kind</span> = kind</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_">getKind</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">kind</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Cat</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Animal</span>&#123;</span><br><span class="line">        <span class="title function_">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">            <span class="variable language_">super</span>(<span class="string">&#x27;Cat&#x27;</span>)</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_">getCatInfo</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span> + <span class="string">&#x27;:&#x27;</span> + <span class="variable language_">super</span>.<span class="title function_">getKind</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> cat = <span class="keyword">new</span> <span class="title class_">Cat</span>(<span class="string">&#x27;kind&#x27;</span>)</span><br><span class="line">    cat.<span class="title function_">getCatInfo</span>() <span class="comment">// kind:Cat</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="33-JS的设计原理是什么"><a href="#33-JS的设计原理是什么" class="headerlink" title="33. JS的设计原理是什么"></a>33. JS的设计原理是什么</h2><p>V8引擎<br>运行上下文： 浏览器里面可以调用的api（DOM，window）、任务队列<br>调用栈： 单线程<br>事件循环<br>回调</p>
+<h2 id="34-JS种关于this指向的问题"><a href="#34-JS种关于this指向的问题" class="headerlink" title="34. JS种关于this指向的问题"></a>34. JS种关于this指向的问题</h2><ol>
+<li>全局对象中的this指向： 指向的是window</li>
+<li>全局作用域或者普通函数中的this： 指向全局window</li>
+<li>this永远指向最后调用它的那个对象： 在不是箭头函数的情况下</li>
+<li>new 关键词改变了this的指向</li>
+<li>apply，call，bind ： 可以改变this指向，不是箭头函数</li>
+<li>箭头函数中的this： 它的指向在定义的时候就已经确定了；箭头函数本身没有this，要看外层是否有函数</li>
+<li>匿名函数中的this： 永远指向window，匿名函数的执行环境具有全局性，因此this指向window</li>
+</ol>
+<h2 id="35-script标签里的async和defer有什么区别"><a href="#35-script标签里的async和defer有什么区别" class="headerlink" title="35. script标签里的async和defer有什么区别"></a>35. script标签里的async和defer有什么区别</h2><p>当没有async和defer这两个属性的时候，浏览器会立刻加载并执行指定的脚本</p>
+<p>有async： 加载和渲染后面元素的过程将和script的加载和执行并行进行（异步）</p>
+<p>有defer： 加载和渲染后面元素的过程将和script的加载并行进行（异步），但是它的执行事件要等所有元素解析完成之后才会执行</p>
+<p>defer会保证脚本的顺序，async不会<br><img src="/hexo_blog/images/2024/09/08/js-1-36.png" alt="图片"><br>蓝色线代表网络读取，红色线代表执行时间，这俩都是针对脚本的；绿色线代表 HTML 解析</p>
+<h2 id="36-setTimeout最小执行时间是多少"><a href="#36-setTimeout最小执行时间是多少" class="headerlink" title="36. setTimeout最小执行时间是多少"></a>36. setTimeout最小执行时间是多少</h2><blockquote>
+<p>HTML5规定的内容：<br>setTimeout最小执行时间是4ms<br>setInterval最小执行时间是10ms</p>
+</blockquote>
+<h2 id="37-ES6-和-ES5有什么区别"><a href="#37-ES6-和-ES5有什么区别" class="headerlink" title="37. ES6 和 ES5有什么区别"></a>37. ES6 和 ES5有什么区别</h2><p>JS的组成： ECMAScript BOM  DOM<br>ES5: ESMAScript5，2009年ECMAScript的第五次修订，ECMAScript2009<br>ES6：ESMAScript6，2015年ECMAScript的第六次修订，ECMAScript2016<br>ES6是ES5的下一个版本</p>
+<h2 id="38-ES6-的新特性有哪些"><a href="#38-ES6-的新特性有哪些" class="headerlink" title="38. ES6 的新特性有哪些"></a>38. ES6 的新特性有哪些</h2><ol>
+<li>新增块级作用域（let，const）<ul>
+<li>不存在变量提升</li>
+<li>存在暂时性死区的问题</li>
+<li>块级作用域的内容</li>
+<li>不能在同一个作用域内重复声明</li>
+</ul>
+</li>
+<li>新增了定义类的语法糖（class）</li>
+<li>新增了一种基本数据类型（symbol）</li>
+<li>新增了解构赋值<ul>
+<li>从数组或者对象中取值，然后给变量赋值</li>
+</ul>
+</li>
+<li>新增了函数参数的默认值</li>
+<li>给数组新增了API</li>
+<li>对象和数组新增了扩展运算符</li>
+<li>Promise<ul>
+<li>解决回调地狱的问题</li>
+<li>自身有all，reject，resolve，race方法</li>
+<li>原型上有then，catch</li>
+<li>把异步操作队列化</li>
+<li>三种状态： pending初始状态，fulfilled操作成功，rejected操作失败</li>
+<li>async  await<ul>
+<li>同步代码做异步的操作，两者必须搭配使用</li>
+<li>async 表明函数内有异步操作，调用函数会返回promise</li>
+<li>await 是组成async的表达式，结果是取决于它等待的内容，如果是promise那就是promise的结果，如果是普通函数就进行链式调用</li>
+<li>await 后的promise如果是reject状态，那么整个async函数都会中断，后面的代码不执行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>新增了模块化（import ，export）</li>
+<li>新增了set和map数据结构<ul>
+<li>set就是不重复</li>
+<li>map key的类型不受限制</li>
+</ul>
+</li>
+<li>新增了generator</li>
+<li>新增了箭头函数<ul>
+<li>不能作为构造函数使用，不能用new 关键字，箭头函数没有原型</li>
+<li>箭头函数没有arguments</li>
+<li>箭头函数不能用call，apply，bind去改变this的指向</li>
+<li>this指向外层第一个函数的this</li>
+</ul>
+</li>
+</ol>
+<h2 id="39-call，apply，band三者有什么区别"><a href="#39-call，apply，band三者有什么区别" class="headerlink" title="39. call，apply，band三者有什么区别"></a>39. call，apply，band三者有什么区别</h2><ul>
+<li><p>都是改变this指向和函数的调用，call和apply的功能类似，只是传参的方法不同</p>
+</li>
+<li><p>call方法传的是一个参数列表</p>
+</li>
+<li><p>apply传递的是一个数组</p>
+</li>
+<li><p>bind 传参后不会立刻执行，会返回一个改变了this指向的函数，这个函数还是可以传参的，bind()()</p>
+</li>
+<li><p>call 方法的性能要比apply好一些，所以call用的更多一点</p>
+</li>
+</ul>
+<h2 id="40-用递归的时候有没有遇到什么问题"><a href="#40-用递归的时候有没有遇到什么问题" class="headerlink" title="40. 用递归的时候有没有遇到什么问题"></a>40. 用递归的时候有没有遇到什么问题</h2><p>如果一个函数内可以调用函数本身，那么这个就是递归函数<br>特别注意： 写递归必须要有终止条件 return</p>
+<h2 id="41-如何实现一个深拷贝"><a href="#41-如何实现一个深拷贝" class="headerlink" title="41. 如何实现一个深拷贝"></a>41. 如何实现一个深拷贝</h2><p>深拷贝就是完全拷贝一份新的对象，会在堆内存中开辟新的空间，拷贝的对象被修改后，原对象不受影响，主要针对的是引用数据类型</p>
+<ol>
+<li>扩展运算符<ul>
+<li>缺点： 这个方法只能实现第一层，当有多层的时候还是浅拷贝</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">        <span class="attr">age</span>: <span class="number">19</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> obj1 = &#123;...obj&#125;</span><br><span class="line">    obj1.<span class="property">name</span> = <span class="string">&#x27;李四&#x27;</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(obj,obj1);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>JSON.parse(JSON.stringify)<ul>
+<li>缺点： 该方法并不会拷贝内部函数</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">        <span class="attr">age</span>: <span class="number">19</span>,</span><br><span class="line">        <span class="title function_">say</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;say hello&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> obj1 = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(obj))</span><br><span class="line">    obj1.<span class="property">name</span> = <span class="string">&#x27;李四&#x27;</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(obj,obj1);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>利用递归函数实现</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj2 = &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>,</span><br><span class="line">        <span class="attr">age</span>: <span class="number">19</span>,</span><br><span class="line">        <span class="title function_">say</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;say hello&#x27;</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">arr</span>: [[<span class="number">1</span>,<span class="number">2</span>],<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">cloneFn</span>(<span class="params">origin,deep</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> obj  = &#123;&#125;</span><br><span class="line">        <span class="keyword">if</span>(origin <span class="keyword">instanceof</span> <span class="title class_">Array</span>)&#123;</span><br><span class="line">            obj = []</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> origin)&#123;</span><br><span class="line">            <span class="keyword">if</span>(origin.<span class="title function_">hasOwnProperty</span>(key))&#123;</span><br><span class="line">                <span class="keyword">if</span>(!!deep)&#123;</span><br><span class="line">                    <span class="keyword">let</span> value = origin[key]</span><br><span class="line">                    obj[key] = (<span class="keyword">typeof</span> value === <span class="string">&#x27;object&#x27;</span> &amp;&amp; value !== <span class="literal">null</span>)?<span class="title function_">cloneFn</span>(value,deep):value</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    obj[key] = origin[key]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> obj</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> obj1 =  <span class="title function_">cloneFn</span>(obj2,<span class="literal">true</span>)</span><br><span class="line">    obj1.<span class="property">obj1</span>.<span class="property">arr</span>[<span class="number">0</span>].<span class="title function_">push</span>(<span class="number">100</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(obj2,obj1);</span><br></pre></td></tr></table></figure>
+
+<h2 id="42-说一下事件循环"><a href="#42-说一下事件循环" class="headerlink" title="42. 说一下事件循环"></a>42. 说一下事件循环</h2><p>JS是一个单线程的脚本语言<br>主线程 ， 执行栈， 任务队列 ， 宏任务 ， 微任务</p>
+<p>主线程先执行同步任务，然后才去执行任何队列里的任务，如果在执行宏任务之前有微任务，那么要先执行微任务；全部执行完之后等待主线程的调用，调用完之后再去任务队列中查看是否有异步任务，这样一个循环往复的过程就是事件循环。</p>
+<h2 id="43-ajax是什么，怎么实现的"><a href="#43-ajax是什么，怎么实现的" class="headerlink" title="43. ajax是什么，怎么实现的"></a>43. ajax是什么，怎么实现的</h2><p>是创建交互式网页应用的网页开发技术<br>    - 再不重新加载整个网页的前提下，与服务器交换数据并更新部分内容</p>
+<p>实现： 通过XMLhttpRequest对象向服务器发送异步请求，然后从服务器拿到数据，最后通过js操作DOM更新页面</p>
+<h2 id="44-get和post有什么区别"><a href="#44-get和post有什么区别" class="headerlink" title="44. get和post有什么区别"></a>44. get和post有什么区别</h2><ol>
+<li>get一般是获取数据，post一般用来提交数据</li>
+<li>get参数会放在url上，所以安全性比较差，post是放在body中</li>
+<li>get请求刷新服务器或退回是没有影响的，post请求退回时会重新提交数据</li>
+<li>get请求时会被缓存，post请求不会被缓存</li>
+<li>get请求会被保存在浏览器历史记录中，post不会</li>
+<li>get请求只能进行url编码，post请求支持很多（文件，表单等）</li>
+</ol>
+<h2 id="45-Promise的内部原理是什么？它的优缺点是什么？"><a href="#45-Promise的内部原理是什么？它的优缺点是什么？" class="headerlink" title="45. Promise的内部原理是什么？它的优缺点是什么？"></a>45. Promise的内部原理是什么？它的优缺点是什么？</h2><p>Promise对象，封装了一个异步操作并且还可以获取成功或失败的结果<br>Promise主要就是解决 回调地狱的问题，之前如果异步任务比较多，同时他们之间有相互依赖的关系，就只能使用回调函数处理，这样就容易形成回调地狱，代码的可读性差，可维护性也很差<br>有三种状态： pedning初始状态 fulfilled成功状态  rejected失败状态</p>
+<p>状态改变只要两种情况：<br>    - pending -&gt; fulfilled；pending -&gt; rejected 一旦发生，状态就会凝固，不会再变</p>
+<p>首先就是我们无法取消promise，一旦创建它就会立即执行，不能中途取消<br>如果不设置回调，promise内部抛出的错误就无法反馈到外面<br>若当前处于pending状态时，无法得知目前在哪个阶段<br>原理：<br>    构造一个promise实例，实例需要传递函数的参数，这个函数有两个形参，分别都是函数类型，一个是resolve，一个是reject<br>    promise身上才还有then方法，这个方法就是用指定状态改变时的确定操作，resolve是执行第一个函数，reject是执行第二个函数</p>
+<h2 id="46-promise和async-await的区别是什么"><a href="#46-promise和async-await的区别是什么" class="headerlink" title="46. promise和async await的区别是什么"></a>46. promise和async await的区别是什么</h2><ol>
+<li>都是处理异步请求的方式</li>
+<li>promise是es6，async await 是es6的语法</li>
+<li>async await是基于promise实现的，他和promise都是非阻塞性的</li>
+</ol>
+<p><strong>优缺点</strong>：<br>    1. promise是返回对象我们要用then，catch方法处理和捕获异常，并且书写方式是链式，容易造成代码重叠，不好维护，async await是通过tra catch进行捕获异常<br>        2. async await最大的有点就是能让代码看起来像同步一样，只要遇到await就会立即返回结果，然后再执行后面的操作，promise.then() 的方式返回，会出现请求还没返回，就执行了后面的操作</p>
+<h2 id="47-浏览器的储存方法有哪些"><a href="#47-浏览器的储存方法有哪些" class="headerlink" title="47. 浏览器的储存方法有哪些"></a>47. 浏览器的储存方法有哪些</h2><ol>
+<li>cookies：请求头自带cookies，存储量小，资源浪费，使用麻烦</li>
+<li>localstorage ： H5加入的以键值对为标准的方式；操作方便，永久存储</li>
+<li>sessionstorage ： 当前页面关闭后就会立即清理，回话级别的存储方式</li>
+<li>indexedDB： H5标准的储存方式，他是以键值对进行存储，可以快速读取，适合WEB场景</li>
+</ol>
+<h2 id="48-页面渲染的过程是怎么样的"><a href="#48-页面渲染的过程是怎么样的" class="headerlink" title="48. 页面渲染的过程是怎么样的"></a>48. 页面渲染的过程是怎么样的</h2><p>DNS解析 -&gt; 建立TCP连接 -&gt; 发送HTTP请求 -&gt; 服务器处理请求 -&gt; 渲染页面（浏览器会获取HTML和CSS的资源，然后把HTML解析成DOM树，再把CSS解析成CSSOM，把DOM和CSSOM合并为渲染树，最后绘制到页面 ） -&gt;  断开TCP连接</p>
+<h2 id="49-DOM树和渲染树有什么区别"><a href="#49-DOM树和渲染树有什么区别" class="headerlink" title="49. DOM树和渲染树有什么区别"></a>49. DOM树和渲染树有什么区别</h2><p>DOM树是和HTML标签一一对应的，包括head和隐藏元素<br>渲染树是不包含head和隐藏元素</p>
+<h2 id="50-精灵图和base64的区别是什么"><a href="#50-精灵图和base64的区别是什么" class="headerlink" title="50.精灵图和base64的区别是什么"></a>50.精灵图和base64的区别是什么</h2><p>精灵图：把多张小图整合到一张大图上，利用定位的一些属性把小图显示在页面上，当访问页面可以减少请求，提高加载速度</p>
+<p>base64： 传输8Bit字节代码的编码方式，把原本二进制形式转为64个字符的单位，最后组成字符串<br>base64 是会和html css一起下载到浏览器中，减少请求，减少跨域问题，但是base64转换后的体积会很大</p>
+<h2 id="51-svg格式了解多少？"><a href="#51-svg格式了解多少？" class="headerlink" title="51. svg格式了解多少？"></a>51. svg格式了解多少？</h2><p>基于XML语法格式的图像格式，可缩放矢量图，SVG是属于对图像形状的描述，本质是文本文件，体积小，并且不管放大多少倍都不会失真</p>
+<p>SVG可直接插入页面中。成为DOM的一部分，然后用JS或CSS进行操作<br>可以作为标签使用<br>可作为文件被引入</p>
+<h2 id="52-了解过JWT吗"><a href="#52-了解过JWT吗" class="headerlink" title="52. 了解过JWT吗"></a>52. 了解过JWT吗</h2><p>JSON WEB TOKEN 通过JSON形式作为WEB应用中的令牌，可以在各方之间安全的把信息作为JSON对象传输</p>
+<p>信息传输，授权</p>
+<h2 id="53-npm的底层环境是什么"><a href="#53-npm的底层环境是什么" class="headerlink" title="53. npm的底层环境是什么"></a>53. npm的底层环境是什么</h2><p>node package manger，node的包管理和分发工具，已经成为分发node模块的标准，是JS的运行环境</p>
+<p>npm的组成： 网站、注册表、命令行工具</p>
+<h2 id="54-说一下浏览器的缓存策略"><a href="#54-说一下浏览器的缓存策略" class="headerlink" title="54. 说一下浏览器的缓存策略"></a>54. 说一下浏览器的缓存策略</h2><p>强缓存（本地缓存）、协商缓存（弱缓存）<br>强缓： 不发起请求，直接使用缓存里的内容，浏览器吧JS，CSS，image等存到内存中，下次用户访问直接从内存中取，提高性能</p>
+<p>协缓： 需要向后台发请求，通过判断来决定是否使用协商缓存，如果请求内容没有变化，则返回304，浏览器就用缓存里的内容</p>
+<h2 id="55-什么是同源策略"><a href="#55-什么是同源策略" class="headerlink" title="55. 什么是同源策略"></a>55. 什么是同源策略</h2><p>协议 、 子域名、 主域名 、 端口号、 资源</p>
+<p>协议，域名，端口都要相同，一旦不同就会产生跨域</p>
+<h2 id="56-防抖和节流是什么"><a href="#56-防抖和节流是什么" class="headerlink" title="56. 防抖和节流是什么"></a>56. 防抖和节流是什么</h2><p>都是应对页面中频繁触发事件的优化方案</p>
+<p>防抖： 避免事件重复触发</p>
+<p>节流：把频繁触发的事件减少，每隔一段时间执行</p>
+<h2 id="57-什么是json？"><a href="#57-什么是json？" class="headerlink" title="57. 什么是json？"></a>57. 什么是json？</h2><p>JSON是一种纯字符串形式的数据，它本身不提供任何方法，适合在网络中进行传输<br>JSON数据存储在 .json文件中<br>也可以吧JSON数据以字符串的形式保存在数据库，cookies中</p>
+<p>js提供了两个方法</p>
+<h2 id="58-当数据没有请求过来的时候，怎么做？"><a href="#58-当数据没有请求过来的时候，怎么做？" class="headerlink" title="58. 当数据没有请求过来的时候，怎么做？"></a>58. 当数据没有请求过来的时候，怎么做？</h2><p>可以在渲染数据时给一个默认值<br>也可以通过if判断</p>
+<h2 id="59-有没有做过无感登录？"><a href="#59-有没有做过无感登录？" class="headerlink" title="59. 有没有做过无感登录？"></a>59. 有没有做过无感登录？</h2><ol>
+<li>在响应中拦截，判断token返回过期后，调用刷新token的接口</li>
+<li>后端返回过期时间，前端判断token的过期时间，去调用刷新token的接口</li>
+<li>使用定时器</li>
+</ol>
+<h2 id="60-大文件上传是怎么做的？"><a href="#60-大文件上传是怎么做的？" class="headerlink" title="60. 大文件上传是怎么做的？"></a>60. 大文件上传是怎么做的？</h2><p>分片上传：<br>    1. 把需要上传的文件按照一定得规则，分割成相同大小的数据块<br>        2. 初始化一个分片上传任务，返回本次分片上传的唯一标识<br>        3. 按照一定得规则吧各个数据块上传<br>        4. 发送完成后，服务端会判断数据上传的完整性，如果完整，那么就会把数据库合并成原始文件<br>        断点续传：<br>        服务端返回，从哪里开始  浏览器自己处理</p>
+<h2 id="61-请尝试写出缓冲运动的效果"><a href="#61-请尝试写出缓冲运动的效果" class="headerlink" title="61. 请尝试写出缓冲运动的效果"></a>61. 请尝试写出缓冲运动的效果</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">startMove</span> (<span class="params">dom, target</span>) &#123;</span><br><span class="line">    <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">    <span class="keyword">var</span> iSpeed = <span class="literal">null</span>;</span><br><span class="line">    timer = <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        iSpeed = (target - dom.<span class="property">offsetLeft</span>) / <span class="number">7</span>; </span><br><span class="line">        iSpeed = iSpeed &gt; <span class="number">0</span> ? <span class="title class_">Math</span>.<span class="title function_">ceil</span>(iSpeed) : <span class="title class_">Math</span>.<span class="title function_">floor</span>(iSpeed);</span><br><span class="line">        <span class="keyword">if</span> (dom.<span class="property">offsetLeft</span> == target) &#123;</span><br><span class="line">            <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            dom.<span class="property">style</span>.<span class="property">left</span> = dom.<span class="property">offsetLeft</span> + iSpeed + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">30</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_js%E8%A1%A5%E5%85%85/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo_blog/tags/Javascript%E8%A1%A5%E5%85%85/" rel="tag">Javascript补充</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo_blog/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/hexo_blog/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/hexo_blog/2024/09/08/2024/09/08/%E9%9D%A2%E8%AF%95%E9%A2%98_Git/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前端面试题 - Git/SVN篇
+          
+        </div>
+      </a>
+    
+    
+      <a href="/hexo_blog/2024/09/08/2024/09/08/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">工作中常用方法JS</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2024
+        <i class="ri-heart-fill heart_icon"></i> Sun Chao Qun
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/hexo_blog/"><img src="/hexo_blog/images/ayer-side.svg" alt="个人博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/hexo_blog/2024/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/hexo_blog/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/hexo_blog/images/alipay.png">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/hexo_blog/images/wechat.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/hexo_blog/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/hexo_blog/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/hexo_blog/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/hexo_blog/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/hexo_blog/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/hexo_blog/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
